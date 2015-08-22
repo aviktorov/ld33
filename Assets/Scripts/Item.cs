@@ -5,12 +5,19 @@ public class Item : MonoBehaviour {
 	[Header("Outline")]
 	public float outlineWidth = 0.05f;
 
+	[Header("Logic")]
+	public bool isMimic = false;
+	public bool selected = false;
+
 	private Transform cachedTransform;
+
 	private GameObject outline;
+	private Renderer cachedOutlineRenderer;
 
 	private void Awake () {
 		cachedTransform = GetComponent<Transform>();
 
+		// Outliner
 		outline = new GameObject("Outliner");
 		outline.transform.SetParent(cachedTransform, false);
 		outline.AddComponent<MeshRenderer>();
@@ -21,7 +28,7 @@ public class Item : MonoBehaviour {
 		Vector3[] vertices = mesh.vertices;
 		Vector3[] normals = mesh.normals;
 		Vector2[] uv = mesh.uv;
-	
+
 		Vector3[] outlineVertices = new Vector3[vertices.Length];
 		float maxScale = Mathf.Max(Mathf.Abs(cachedTransform.localScale.x), Mathf.Abs(cachedTransform.localScale.y), Mathf.Abs(cachedTransform.localScale.z));
 		for (int i = 0; i < outlineVertices.Length; i++) 
@@ -49,9 +56,26 @@ public class Item : MonoBehaviour {
 		outlineMesh.triangles  = outlineTriangles;
 		outlineMesh.normals = outlineNormals;
 
-		outline.GetComponent<Renderer>().sharedMaterial = Player.instance.outlineMaterial;
+		cachedOutlineRenderer = outline.GetComponent<Renderer>();
+		cachedOutlineRenderer.sharedMaterial = Player.instance.outlineMaterial;
+		cachedOutlineRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 
 		outline.SetActive(false);
+	}
+
+	public void Seleted() {
+		if (!selected) {
+			selected = true;
+			cachedOutlineRenderer.sharedMaterial = Player.instance.selectedMaterial;
+		}
+		else {
+			Unselected();
+		}
+	}
+
+	public void Unselected() {
+		selected = false;
+		cachedOutlineRenderer.sharedMaterial = Player.instance.outlineMaterial;
 	}
 
 	public void Show() {
@@ -59,6 +83,7 @@ public class Item : MonoBehaviour {
 	}
 
 	public void Hide() {
-		outline.SetActive(false);
+		if (!selected)
+			outline.SetActive(false);
 	}
 }

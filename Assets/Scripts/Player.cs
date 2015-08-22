@@ -2,11 +2,13 @@
 using System.Collections;
 
 public class Player : MonoSingleton<Player> {
-	[Header("Outline")]
+	[Header("Panel")]
 	public Transform panel;
 	public float offset = 150.0f;
 	
+	[Header("Outline")]
 	public Material outlineMaterial;
+	public Material selectedMaterial;
 
 	private Camera cachedCamera;
 	private Item currentItem;
@@ -27,6 +29,10 @@ public class Player : MonoSingleton<Player> {
 					currentItem.Hide();
 				item.Show();
 				currentItem = item;
+
+				if (Input.GetMouseButtonDown(0)) {
+					currentItem.Seleted();
+				}
 			}
 
 			panel.gameObject.SetActive(true);

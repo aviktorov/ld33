@@ -9,19 +9,21 @@ public class GameLogic : MonoBehaviour {
 	public Color trueMimicColor = Color.green;
 	public Color falseMimicColor = Color.red;
 	public Color notSelectedMimicColor = Color.blue;
+	public Timer timer;
 
 	[Header("Game flow")]
 	public GameObject endButton;
 	public GameObject restartButton;
 
 	public void EndGame() {
+		timer.isStop = true;
 		endButton.SetActive(false);
 		restartButton.SetActive(true);
 
 		statisticsPanel.SetActive(true);
 
 		GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
-		statisticsText.text = "<b>Statistics:</b>\n";
+		statisticsText.text = "<b>Statistics (" + timer.GetTime() + "):</b>\n";
 		foreach (var itemObject in items) {
 			Item item = itemObject.GetComponent<Item>();
 			if (item != null) {

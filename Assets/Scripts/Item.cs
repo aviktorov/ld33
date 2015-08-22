@@ -9,6 +9,11 @@ public class Item : MonoBehaviour {
 	public bool isMimic = false;
 	public bool selected = false;
 
+	[Header("Description")]
+	public string label = "Label";
+	public string price = "100 ₽";
+	public string description = "Test description";
+
 	private Transform cachedTransform;
 
 	private GameObject outline;

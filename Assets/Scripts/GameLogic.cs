@@ -8,8 +8,16 @@ public class GameLogic : MonoBehaviour {
 	public Text statisticsText;
 	public string trueMimicColor;
 	public string falseMimicColor;
+	public string notSelectedMimicColor;
+
+	[Header("Game flow")]
+	public GameObject endButton;
+	public GameObject restartButton;
 
 	public void EndGame() {
+		endButton.SetActive(false);
+		restartButton.SetActive(true);
+
 		statisticsPanel.SetActive(true);
 
 		GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
@@ -18,9 +26,15 @@ public class GameLogic : MonoBehaviour {
 			Item item = itemObject.GetComponent<Item>();
 			if (item != null) {
 				if (item.selected) {
-					statisticsText.text += "<color=\"" + (item.isMimic ? trueMimicColor : falseMimicColor) +"\">" + item.label + "</color>\n";
+					statisticsText.text += "<color=\"" + (item.isMimic ? trueMimicColor : falseMimicColor) +"\">" + item.label + " " + (item.isMimic ? "(True)" : "(False)") + "</color>\n";
 				}
+				else if (item.isMimic) 
+					statisticsText.text += "<color=\"" + notSelectedMimicColor +"\">" + item.label + "(NotSelected) </color>\n";
 			}
 		}
+	}
+
+	public void Restart() {
+		Application.LoadLevel(0);
 	}
 }

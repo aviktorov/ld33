@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Player : MonoSingleton<Player> {
 	[Header("Panel")]
 	public Transform panel;
+	public Text labelText;
+	public Text priceText;
+	public Text descriptionText;
 	public float offset = 150.0f;
 	
 	[Header("Outline")]
@@ -33,6 +37,10 @@ public class Player : MonoSingleton<Player> {
 				if (Input.GetMouseButtonDown(0)) {
 					currentItem.Seleted();
 				}
+
+				labelText.text = "<b>" + item.label + "</b>";
+				priceText.text = "<b>Price:</b> " + item.price + "₽";
+				descriptionText.text = "<b>Descritption:</b>\n" + item.description;
 			}
 
 			panel.gameObject.SetActive(true);

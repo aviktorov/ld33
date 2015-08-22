@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour {
-
+public class Player : MonoSingleton<Player> {
 	public Transform panel;
+	
+	public Material outlineMaterial;
 
 	private Camera cachedCamera;
+	private Item currentItem;
 
 	private void Start() {
 		cachedCamera = Camera.main;
@@ -17,10 +19,17 @@ public class Player : MonoBehaviour {
 		Ray ray = cachedCamera.ScreenPointToRay(Input.mousePosition);
 		bool wallCollided = Physics.Raycast(ray, out hitWall, Mathf.Infinity, 1 << LayerMask.NameToLayer("Wall"));
 		if (Physics.Raycast(ray, out hitItem, Mathf.Infinity, 1 << LayerMask.NameToLayer("Item")) && (!wallCollided || hitItem.distance < hitWall.distance)) {
+			Item item = hitItem.transform.GetComponent<Item>();
+			if (item != null) {
+				if (currentItem != null)
+					currentItem.Hide();
+				item.Show();
+				currentItem = item;
+			}
+
 			panel.gameObject.SetActive(true);
 
 			Vector3 itemPosition = cachedCamera.WorldToScreenPoint(hitItem.transform.position);
-			Debug.Log(itemPosition);
 
 			float offset = 0.0f;
 			if (itemPosition.x < cachedCamera.pixelWidth / 2)
@@ -42,6 +51,10 @@ public class Player : MonoBehaviour {
 		}
 		else {
 			panel.gameObject.SetActive(false);
+			if (currentItem != null) {
+				currentItem.Hide();
+				currentItem = null;
+			}
 		}
 	}
 }

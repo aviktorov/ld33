@@ -2,12 +2,12 @@
 using System.Collections;
 
 public class Room : MonoBehaviour {
-	public Transform mainCamera;
 	public Transform[] cameras;
 
 	public float speed = 50.0f;
 	public float speedRotation = 10.0f;
 
+	private Transform cachedCamera;
 	private int current = 0;
 	private Vector3 targetPosition;
 	private Quaternion targetRotation;
@@ -16,21 +16,21 @@ public class Room : MonoBehaviour {
 	private Quaternion[] rotations;
 
 	private void Awake() {
-		positions = new Vector3[cameras.Length + 1];
-		rotations = new Quaternion[cameras.Length + 1];
+		positions = new Vector3[cameras.Length];
+		rotations = new Quaternion[cameras.Length];
 		
-		positions[0] = mainCamera.position;
-		rotations[0] = mainCamera.rotation;
+		cachedCamera = cameras[0];
 		for (int i = 0; i < cameras.Length; ++i) {
-			positions[i + 1] = cameras[i].position;
-			rotations[i + 1] = cameras[i].rotation;
-			Destroy(cameras[i].gameObject);
+			positions[i] = cameras[i].position;
+			rotations[i] = cameras[i].rotation;
+			if (i != 0)
+				Destroy(cameras[i].gameObject);
 		}
 
-		mainCamera.position = positions[current];
-		mainCamera.rotation = rotations[current];
 		targetPosition = positions[current];
 		targetRotation = rotations[current];
+		cachedCamera.position = targetPosition;
+		cachedCamera.rotation = targetRotation;
 	}
 
 	private void Update () {
@@ -46,12 +46,12 @@ public class Room : MonoBehaviour {
 			targetRotation = rotations[current];
 		}
 		
-		if (Vector3.Distance(mainCamera.position, targetPosition) > 0.0000001f) {
-			mainCamera.position = Vector3.MoveTowards(mainCamera.position, targetPosition, speed * Time.deltaTime);
+		if (Vector3.Distance(cachedCamera.position, targetPosition) > 0.0000001f) {
+			cachedCamera.position = Vector3.MoveTowards(cachedCamera.position, targetPosition, speed * Time.deltaTime);
 		}
 
-		if (Quaternion.Angle(mainCamera.rotation, targetRotation) > 0.0000001f) {
-			mainCamera.rotation = Quaternion.RotateTowards(mainCamera.rotation, targetRotation, speedRotation * Time.deltaTime);
+		if (Quaternion.Angle(cachedCamera.rotation, targetRotation) > 0.0000001f) {
+			cachedCamera.rotation = Quaternion.RotateTowards(cachedCamera.rotation, targetRotation, speedRotation * Time.deltaTime);
 		}
 	}
 }

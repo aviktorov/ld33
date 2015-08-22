@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class Item : MonoBehaviour {
-
 	[Header("Outline")]
 	public float outlineWidth = 0.05f;
 
@@ -19,21 +18,23 @@ public class Item : MonoBehaviour {
 		Mesh mesh = GetComponent<MeshFilter>().mesh;
 		Mesh outlineMesh = outline.AddComponent<MeshFilter>().mesh;
 
-		Vector3[] normals = mesh.normals;
-		Vector3[] outlineNormals = new Vector3[normals.Length];
-		for (int i = 0; i < outlineNormals.Length; i++)
-			outlineNormals[i] = -normals[i];
-
 		Vector3[] vertices = mesh.vertices;
+		Vector3[] normals = mesh.normals;
+		Vector2[] uv = mesh.uv;
+	
 		Vector3[] outlineVertices = new Vector3[vertices.Length];
 		float maxScale = Mathf.Max(Mathf.Abs(cachedTransform.localScale.x), Mathf.Abs(cachedTransform.localScale.y), Mathf.Abs(cachedTransform.localScale.z));
 		for (int i = 0; i < outlineVertices.Length; i++) 
 			outlineVertices[i] = vertices[i] + normals[i] * outlineWidth / maxScale;
 
-		Vector2[] uv = mesh.uv;
 		Vector2[] outlineUV = new Vector2[uv.Length];
 		for (int i = 0; i < outlineUV.Length; i++)
 			outlineUV[i] = uv[i];
+
+		// Flip normals
+		Vector3[] outlineNormals = new Vector3[normals.Length];
+		for (int i = 0; i < outlineNormals.Length; i++)
+			outlineNormals[i] = -normals[i];
 
 		int[] triangles  = mesh.triangles ;
 		int[] outlineTriangles  = new int[triangles .Length];
@@ -51,10 +52,6 @@ public class Item : MonoBehaviour {
 		outline.GetComponent<Renderer>().sharedMaterial = Player.instance.outlineMaterial;
 
 		outline.SetActive(false);
-	}
-	
-	private void Update () {
-	
 	}
 
 	public void Show() {

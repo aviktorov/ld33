@@ -2,7 +2,9 @@
 using System.Collections;
 
 public class Player : MonoSingleton<Player> {
+	[Header("Outline")]
 	public Transform panel;
+	public float offset = 150.0f;
 	
 	public Material outlineMaterial;
 
@@ -31,22 +33,22 @@ public class Player : MonoSingleton<Player> {
 
 			Vector3 itemPosition = cachedCamera.WorldToScreenPoint(hitItem.transform.position);
 
-			float offset = 0.0f;
+			float dirOffset = 0.0f;
 			if (itemPosition.x < cachedCamera.pixelWidth / 2)
-				offset = -150.0f;
+				dirOffset = -offset;
 			else
-				offset = 150.0f;
+				dirOffset = offset;
 
-			panel.position = VectorExt.WithZ(itemPosition, 0.0f) + Vector3.left * offset;
+			panel.position = VectorExt.WithZ(itemPosition, 0.0f) + Vector3.left * dirOffset;
 
-			if (panel.position.x > cachedCamera.pixelWidth - 175) 
+			if (panel.position.x > cachedCamera.pixelWidth - offset) 
 				panel.position = VectorExt.WithX(panel.position, panel.position.x - (cachedCamera.pixelWidth - panel.position.x + 50));
-			if (panel.position.x < 175) 
+			if (panel.position.x < offset) 
 				panel.position = VectorExt.WithX(panel.position, panel.position.x + (50 + panel.position.x));
 
-			if (panel.position.y > cachedCamera.pixelHeight - 150) 
+			if (panel.position.y > cachedCamera.pixelHeight - offset) 
 				panel.position = VectorExt.WithY(panel.position, panel.position.y - (cachedCamera.pixelHeight - panel.position.y + 100));
-			if (panel.position.y < 150) 
+			if (panel.position.y < offset) 
 				panel.position = VectorExt.WithY(panel.position, panel.position.y + (100 + panel.position.y));
 		}
 		else {

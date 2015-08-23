@@ -13,6 +13,7 @@ public abstract class GameDBEditor : Editor {
 			
 			EditorGUILayout.LabelField(string.Format("Description: {0}", data.descriptions.Count));
 			EditorGUILayout.LabelField(string.Format("Names: {0}", data.names.Count));
+			EditorGUILayout.LabelField(string.Format("Types: {0}", data.types.Count));
 
 			EditorGUILayout.BeginHorizontal();
 				if(GUILayout.Button("Import")) {
@@ -22,6 +23,7 @@ public abstract class GameDBEditor : Editor {
 				if(GUILayout.Button("Clear")) {
 					data.descriptions.Clear();
 					data.names.Clear();
+					data.types.Clear();
 				}
 			EditorGUILayout.EndHorizontal();
 		EditorGUILayout.EndVertical();

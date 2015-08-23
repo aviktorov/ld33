@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class GameLogic : MonoBehaviour {
+public class GameLogic : MonoSingleton<GameLogic> {
 	[Header("Statistics")]
 	public GameObject statisticsPanel;
 	public Text statisticsText;
@@ -15,6 +15,9 @@ public class GameLogic : MonoBehaviour {
 	[Header("Game flow")]
 	public GameObject endButton;
 	public GameObject restartButton;
+
+	[Header("Logic")]
+	public GameDB db;
 
 	public void EndGame() {
 		timer.isStop = true;
@@ -30,10 +33,10 @@ public class GameLogic : MonoBehaviour {
 			Item item = itemObject.GetComponent<Item>();
 			if (item != null) {
 				if (item.selected) {
-					statisticsText.text += "<color=\"#" + (item.isMimic ? ColorExt.ToHexString(trueMimicColor) : ColorExt.ToHexString(falseMimicColor)) +"\">";
-					statisticsText.text += item.label + " " + (item.isMimic ? "(True)" : "(False)") + "</color>\n";
+					statisticsText.text += "<color=\"#" + (item.mimic ? ColorExt.ToHexString(trueMimicColor) : ColorExt.ToHexString(falseMimicColor)) +"\">";
+					statisticsText.text += item.label + " " + (item.mimic ? "(True)" : "(False)") + "</color>\n";
 				}
-				else if (item.isMimic) 
+				else if (item.mimic) 
 					statisticsText.text += "<color=\"#" + ColorExt.ToHexString(notSelectedMimicColor) +"\">" + item.label + " (NotSelected) </color>\n";
 			}
 		}

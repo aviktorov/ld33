@@ -9,10 +9,6 @@ public class Player : MonoSingleton<Player> {
 	public Text priceText;
 	public Text descriptionText;
 	public float offset = 150.0f;
-	
-	[Header("Outline")]
-	public Material outlineMaterial;
-	public Material selectedMaterial;
 
 	private Camera cachedCamera;
 	private Item currentItem;

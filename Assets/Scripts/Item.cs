@@ -2,14 +2,12 @@
 using System.Collections;
 
 public class Item : MonoBehaviour {
-	[Header("Outline")]
-	public float outlineWidth = 0.05f;
-
 	[Header("Logic")]
-	public bool isMimic = false;
 	public bool selected = false;
 
 	[Header("Description")]
+	public string type = "TV";
+	public bool mimic = false;
 	public string label = "Label";
 	public string price = "100₽";
 	public string description = "Test description";
@@ -19,37 +17,66 @@ public class Item : MonoBehaviour {
 	private GameObject outline;
 	private Renderer cachedOutlineRenderer;
 
-	private void Awake () {
+	private void Awake() {
 		cachedTransform = GetComponent<Transform>();
 
-		// Outliner
+		CreateOutline();
+	}
+
+	public void Seleted() {
+		if (!selected) {
+			selected = true;
+			cachedOutlineRenderer.sharedMaterial = OutlineSettings.instance.selectedMaterial;
+		}
+		else {
+			Unselected();
+		}
+	}
+
+	public void Unselected() {
+		selected = false;
+		cachedOutlineRenderer.sharedMaterial = OutlineSettings.instance.highlightedMaterial;
+	}
+
+	public void Show() {
+		outline.SetActive(true);
+	}
+
+	public void Hide() {
+		if (!selected)
+			outline.SetActive(false);
+	}
+
+	private void CreateOutline() {
+		Mesh mesh = GetComponent<MeshFilter>().mesh;
+
 		outline = new GameObject("Outliner");
 		outline.transform.SetParent(cachedTransform, false);
-		outline.AddComponent<MeshRenderer>();
 
-		Mesh mesh = GetComponent<MeshFilter>().mesh;
+		outline.AddComponent<MeshRenderer>();
 		Mesh outlineMesh = outline.AddComponent<MeshFilter>().mesh;
 
 		Vector3[] vertices = mesh.vertices;
 		Vector3[] normals = mesh.normals;
 		Vector2[] uv = mesh.uv;
+		int[] triangles  = mesh.triangles ;
 
 		Vector3[] outlineVertices = new Vector3[vertices.Length];
+		Vector2[] outlineUV = new Vector2[uv.Length];
+		Vector3[] outlineNormals = new Vector3[normals.Length];
+		int[] outlineTriangles  = new int[triangles.Length];
+		
 		float maxScale = Mathf.Max(Mathf.Abs(cachedTransform.localScale.x), Mathf.Abs(cachedTransform.localScale.y), Mathf.Abs(cachedTransform.localScale.z));
 		for (int i = 0; i < outlineVertices.Length; i++) 
-			outlineVertices[i] = vertices[i] + normals[i] * outlineWidth / maxScale;
+			outlineVertices[i] = vertices[i] + normals[i] * OutlineSettings.instance.width / maxScale;
 
-		Vector2[] outlineUV = new Vector2[uv.Length];
 		for (int i = 0; i < outlineUV.Length; i++)
 			outlineUV[i] = uv[i];
 
 		// Flip normals
-		Vector3[] outlineNormals = new Vector3[normals.Length];
 		for (int i = 0; i < outlineNormals.Length; i++)
 			outlineNormals[i] = -normals[i];
 
-		int[] triangles  = mesh.triangles ;
-		int[] outlineTriangles  = new int[triangles .Length];
 		for (int i = 0; i < outlineTriangles.Length; i += 3) {
 			outlineTriangles[i + 1] = triangles[i];
 			outlineTriangles[i] = triangles[i + 1];
@@ -62,33 +89,9 @@ public class Item : MonoBehaviour {
 		outlineMesh.normals = outlineNormals;
 
 		cachedOutlineRenderer = outline.GetComponent<Renderer>();
-		cachedOutlineRenderer.sharedMaterial = Player.instance.outlineMaterial;
+		cachedOutlineRenderer.sharedMaterial = OutlineSettings.instance.highlightedMaterial;
 		cachedOutlineRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 
 		outline.SetActive(false);
-	}
-
-	public void Seleted() {
-		if (!selected) {
-			selected = true;
-			cachedOutlineRenderer.sharedMaterial = Player.instance.selectedMaterial;
-		}
-		else {
-			Unselected();
-		}
-	}
-
-	public void Unselected() {
-		selected = false;
-		cachedOutlineRenderer.sharedMaterial = Player.instance.outlineMaterial;
-	}
-
-	public void Show() {
-		outline.SetActive(true);
-	}
-
-	public void Hide() {
-		if (!selected)
-			outline.SetActive(false);
 	}
 }

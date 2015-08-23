@@ -25,4 +25,7 @@ public class GameDB : ScriptableObject {
 
 	[HideInInspector]
 	public List<NameData> names = new List<NameData>();
+
+	[HideInInspector]
+	public List<string> types = new List<string>();
 }

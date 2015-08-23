@@ -11,7 +11,7 @@ public class Item : MonoBehaviour {
 
 	[Header("Description")]
 	public string label = "Label";
-	public string price = "100 ₽";
+	public string price = "100₽";
 	public string description = "Test description";
 
 	private Transform cachedTransform;

@@ -1,0 +1,191 @@
+fileFormatVersion: 2
+guid: 68e67acde7585b04fa985507e9c66f65
+timeCreated: 1440349531
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Armchair
+    100004: Bed
+    100006: BedMattress
+    100008: BookClosed
+    100010: BookOpen
+    100012: Carpet
+    100014: Chair
+    100016: Chandelier
+    100018: ChandelierPart
+    100020: Doors
+    100022: Doors.001
+    100024: PhotoFrame
+    100026: PhotoFrameWallMedium
+    100028: PhotoFrameWallMedium.001
+    100030: PhotoFrameWallRoundMedium
+    100032: PhotoFrameWallSmall
+    100034: PosterLarge
+    100036: PosterMedium
+    100038: Room
+    100040: Screen
+    100042: Table
+    100044: TV
+    100046: Wardrobe
+    100048: WardrobeTop
+    400000: //RootNode
+    400002: Armchair
+    400004: Bed
+    400006: BedMattress
+    400008: BookClosed
+    400010: BookOpen
+    400012: Carpet
+    400014: Chair
+    400016: Chandelier
+    400018: ChandelierPart
+    400020: Doors
+    400022: Doors.001
+    400024: PhotoFrame
+    400026: PhotoFrameWallMedium
+    400028: PhotoFrameWallMedium.001
+    400030: PhotoFrameWallRoundMedium
+    400032: PhotoFrameWallSmall
+    400034: PosterLarge
+    400036: PosterMedium
+    400038: Room
+    400040: Screen
+    400042: Table
+    400044: TV
+    400046: Wardrobe
+    400048: WardrobeTop
+    2300000: Armchair
+    2300002: Bed
+    2300004: BedMattress
+    2300006: BookClosed
+    2300008: BookOpen
+    2300010: Carpet
+    2300012: Chair
+    2300014: Chandelier
+    2300016: ChandelierPart
+    2300018: Doors
+    2300020: Doors.001
+    2300022: PhotoFrame
+    2300024: PhotoFrameWallMedium
+    2300026: PhotoFrameWallMedium.001
+    2300028: PhotoFrameWallRoundMedium
+    2300030: PhotoFrameWallSmall
+    2300032: PosterLarge
+    2300034: PosterMedium
+    2300036: Room
+    2300038: Screen
+    2300040: Table
+    2300042: TV
+    2300044: Wardrobe
+    2300046: WardrobeTop
+    3300000: Armchair
+    3300002: Bed
+    3300004: BedMattress
+    3300006: BookClosed
+    3300008: BookOpen
+    3300010: Carpet
+    3300012: Chair
+    3300014: Chandelier
+    3300016: ChandelierPart
+    3300018: Doors
+    3300020: Doors.001
+    3300022: PhotoFrame
+    3300024: PhotoFrameWallMedium
+    3300026: PhotoFrameWallMedium.001
+    3300028: PhotoFrameWallRoundMedium
+    3300030: PhotoFrameWallSmall
+    3300032: PosterLarge
+    3300034: PosterMedium
+    3300036: Room
+    3300038: Screen
+    3300040: Table
+    3300042: TV
+    3300044: Wardrobe
+    3300046: WardrobeTop
+    4300000: Bed
+    4300002: BedMattress
+    4300004: Table
+    4300006: Chair
+    4300008: Chandelier
+    4300010: ChandelierPart
+    4300012: WardrobeTop
+    4300014: Doors.001
+    4300016: Wardrobe
+    4300018: Doors
+    4300020: Armchair
+    4300022: Carpet
+    4300024: PhotoFrameWallRoundMedium
+    4300026: PhotoFrameWallMedium.001
+    4300028: PhotoFrameWallMedium
+    4300030: BookClosed
+    4300032: BookOpen
+    4300034: PosterLarge
+    4300036: PosterMedium
+    4300038: PhotoFrameWallSmall
+    4300040: PhotoFrame
+    4300042: Room
+    4300044: TV
+    4300046: Screen
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

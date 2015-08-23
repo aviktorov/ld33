@@ -4,7 +4,6 @@ using System.Collections;
 
 [CustomEditor(typeof(Item))]
 public class ItemEditor : Editor {
-	private int index = 0;
 	private string[] types;
 
 	public void OnEnable () {
@@ -15,7 +14,7 @@ public class ItemEditor : Editor {
 	public override void OnInspectorGUI() {
 		Item item = (Item) target;
 
-		index = EditorGUILayout.Popup("Type", index, types);
-		item.type = types[index];
+		item.index = EditorGUILayout.Popup("Type", item.index, types);
+		item.type = types[item.index];
 	}
 }

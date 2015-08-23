@@ -91,7 +91,6 @@ public class GameDBSpreadsheet : GameDB {
 		List<string> notDistinctTypes = new List<string>();
 		for (int i = 0; i < names.Count; i++)
 			notDistinctTypes.Add(names[i].type);
-		Debug.Log(notDistinctTypes.Count);
 		IEnumerable<string> distinctTypes = notDistinctTypes.Distinct();
 
 		types.Clear();
@@ -99,7 +98,5 @@ public class GameDBSpreadsheet : GameDB {
 			types.Add(type);
 
 		}
-
-		Debug.Log(types.Count);
 	}
 }

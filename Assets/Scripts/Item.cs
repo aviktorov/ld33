@@ -2,10 +2,9 @@
 using System.Collections;
 
 public class Item : MonoBehaviour {
-	[Header("Logic")]
+	public int index = 0;
 	public bool selected = false;
 
-	[Header("Description")]
 	public string type = "TV";
 	public bool mimic = false;
 	public string label = "Label";

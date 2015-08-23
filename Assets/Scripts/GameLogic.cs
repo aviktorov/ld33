@@ -6,6 +6,7 @@ public class GameLogic : MonoBehaviour {
 	[Header("Statistics")]
 	public GameObject statisticsPanel;
 	public Text statisticsText;
+	public GameObject timerObject;
 	public Color trueMimicColor = Color.green;
 	public Color falseMimicColor = Color.red;
 	public Color notSelectedMimicColor = Color.blue;
@@ -17,6 +18,7 @@ public class GameLogic : MonoBehaviour {
 
 	public void EndGame() {
 		timer.isStop = true;
+		timerObject.SetActive(false);
 		endButton.SetActive(false);
 		restartButton.SetActive(true);
 

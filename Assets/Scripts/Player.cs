@@ -9,9 +9,11 @@ public class Player : MonoSingleton<Player> {
 	public Text priceText;
 	public Text descriptionText;
 	public float offset = 150.0f;
+	
+	public Item selectedItem;
 
 	private Camera cachedCamera;
-	private Item currentItem;
+	private Item highlightedItem;
 
 	private void Start() {
 		cachedCamera = Camera.main;
@@ -20,27 +22,39 @@ public class Player : MonoSingleton<Player> {
 	private void Update () {
 		RaycastHit hitItem;
 		RaycastHit hitWall;
+
 		Ray ray = cachedCamera.ScreenPointToRay(Input.mousePosition);
 		bool wallCollided = Physics.Raycast(ray, out hitWall, Mathf.Infinity, 1 << LayerMask.NameToLayer("Wall"));
+
 		if (Physics.Raycast(ray, out hitItem, Mathf.Infinity, 1 << LayerMask.NameToLayer("Item")) && (!wallCollided || hitItem.distance < hitWall.distance)) {
 			Item item = hitItem.transform.GetComponent<Item>();
 			if (item != null) {
-				if (currentItem != null)
-					currentItem.Hide();
-				item.Show();
-				currentItem = item;
+				if (highlightedItem != null)
+					highlightedItem.Hide();
+
+				highlightedItem = item;
+				highlightedItem.Show();
 
 				if (Input.GetMouseButtonDown(0)) {
-					currentItem.Seleted();
+					if (selectedItem != null)
+						selectedItem.Unselect();
+
+					if (selectedItem != highlightedItem) {
+						selectedItem = highlightedItem;
+						selectedItem.Select();
+					}
+					else {
+						selectedItem = null;
+					}
 				}
 
-				labelText.text = "<b>" + item.label + "</b>";
-				priceText.text = "<b>Price:</b> " + item.price + " ₽";
-				descriptionText.text = "<b>Descritption:</b>\n" + item.description;
+				labelText.text = "<b>" + highlightedItem.label + "</b>";
+				priceText.text = "<b>Price:</b> " + highlightedItem.price + " ₽";
+				descriptionText.text = "<b>Descritption:</b>\n" + highlightedItem.description;
+				panel.gameObject.SetActive(true);
 			}
 
-			panel.gameObject.SetActive(true);
-
+			// Place a panel not on the edge and with offset.
 			Vector3 itemPosition = cachedCamera.WorldToScreenPoint(hitItem.transform.position);
 
 			float dirOffset = 0.0f;
@@ -63,9 +77,9 @@ public class Player : MonoSingleton<Player> {
 		}
 		else {
 			panel.gameObject.SetActive(false);
-			if (currentItem != null) {
-				currentItem.Hide();
-				currentItem = null;
+			if (highlightedItem != null) {
+				highlightedItem.Hide();
+				highlightedItem = null;
 			}
 		}
 	}

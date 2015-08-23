@@ -7,14 +7,16 @@ public class Item : MonoBehaviour {
 
 	public string type = "TV";
 	public bool mimic = false;
-	public string label = "Label";
+	public string label = "LCD \"Horizont\"";
 	public string price = "100₽";
-	public string description = "Test description";
+	public string description = "• Wow! This is brand new TV! And they added remote control to it.";
 
 	private Transform cachedTransform;
 
 	private GameObject outline;
 	private Renderer cachedOutlineRenderer;
+
+	private bool selectedDebug = false;
 
 	private void Awake() {
 		cachedTransform = GetComponent<Transform>();
@@ -22,19 +24,34 @@ public class Item : MonoBehaviour {
 		CreateOutline();
 	}
 
-	public void Seleted() {
-		if (!selected) {
-			selected = true;
+	public void Select() {
+		selected = true;
+		if (!selectedDebug)
 			cachedOutlineRenderer.sharedMaterial = OutlineSettings.instance.selectedMaterial;
-		}
-		else {
-			Unselected();
-		}
 	}
 
-	public void Unselected() {
+	public void Unselect() {
 		selected = false;
-		cachedOutlineRenderer.sharedMaterial = OutlineSettings.instance.highlightedMaterial;
+		if (!selectedDebug)
+			cachedOutlineRenderer.sharedMaterial = OutlineSettings.instance.highlightedMaterial;
+	}
+
+	public void SelectedDebug() {
+		if (selectedDebug) {
+			selectedDebug = false;
+			if (selected) {
+				cachedOutlineRenderer.sharedMaterial = OutlineSettings.instance.selectedMaterial;
+			}
+			else {
+				outline.SetActive(false);
+				cachedOutlineRenderer.sharedMaterial = OutlineSettings.instance.highlightedMaterial;
+			}
+		}
+		else {
+			outline.SetActive(true);
+			selectedDebug = true;
+			cachedOutlineRenderer.sharedMaterial = OutlineSettings.instance.selectedDebugMaterial;
+		}
 	}
 
 	public void Show() {
@@ -42,7 +59,7 @@ public class Item : MonoBehaviour {
 	}
 
 	public void Hide() {
-		if (!selected)
+		if (!selected && !selectedDebug)
 			outline.SetActive(false);
 	}
 

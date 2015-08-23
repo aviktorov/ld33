@@ -5,21 +5,11 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class GameLogic : MonoSingleton<GameLogic> {
-	[Header("Statistics")]
-	public GameObject statisticsPanel;
-	public Text statisticsText;
-	public GameObject timerObject;
-	public Color trueMimicColor = Color.green;
-	public Color falseMimicColor = Color.red;
-	public Color notSelectedMimicColor = Color.blue;
-	public Timer timer;
-
-	[Header("Game flow")]
-	public GameObject endButton;
-	public GameObject restartButton;
-
-	[Header("Logic")]
 	public GameDB db;
+	public Timer timer;
+	public GameObject suspectButton;
+
+	private Item mimic;
 
 	public void Awake() {
 		GameObject[] itemObjects = GameObject.FindGameObjectsWithTag("Item");
@@ -27,13 +17,21 @@ public class GameLogic : MonoSingleton<GameLogic> {
 		for (int i = 0; i < items.Length; ++i)
 			items[i] = itemObjects[i].GetComponent<Item>();
 
+		int mimicNumber = Random.Range(0, items.Length);
+		int currentNumber = 0;
 		foreach (var item in items) {
+			// Set mimic
+			if (mimicNumber == currentNumber) {
+				mimic = item;
+				item.mimic = true;
+			}
+
 			// Set name
 			List<NameData> names = (from name in db.names where name.type == item.type select name).ToList();
 			item.label = names[Random.Range(0, names.Count)].name;
 
 			// Set descriptions
-			List<DescriptionData> descriptions = (from d in db.descriptions where d.type == item.type select d).ToList();
+			List<DescriptionData> descriptions = (from d in db.descriptions where (d.type == item.type && (mimicNumber == currentNumber || d.mimic != "1")) select d).ToList();
 			List<DescriptionData> chosenDescriptions = new List<DescriptionData>();
 			int groupsNumber = 0;
 			int.TryParse(descriptions.Max(d => d.group), out groupsNumber);
@@ -64,33 +62,23 @@ public class GameLogic : MonoSingleton<GameLogic> {
 
 			// Set price
 			item.price = descriptions[0].price;
+
+			currentNumber++;
 		}
+	}
+
+	public void Update() {
+		if (Input.GetKeyDown(KeyCode.Space))
+			mimic.SelectedDebug();
 	}
 
 	public void EndGame() {
-		timer.isStop = true;
-		timerObject.SetActive(false);
-		endButton.SetActive(false);
-		restartButton.SetActive(true);
+		timer.gameObject.SetActive(false);
+		suspectButton.SetActive(false);
 
-		statisticsPanel.SetActive(true);
-
-		GameObject[] itemObjects = GameObject.FindGameObjectsWithTag("Item");
-		statisticsText.text = "<b>Statistics (" + timer.GetTime() + "):</b>\n";
-		foreach (var itemObject in itemObjects) {
-			Item item = itemObject.GetComponent<Item>();
-			if (item != null) {
-				if (item.selected) {
-					statisticsText.text += "<color=\"#" + (item.mimic ? ColorExt.ToHexString(trueMimicColor) : ColorExt.ToHexString(falseMimicColor)) +"\">";
-					statisticsText.text += item.label + " " + (item.mimic ? "(True)" : "(False)") + "</color>\n";
-				}
-				else if (item.mimic) 
-					statisticsText.text += "<color=\"#" + ColorExt.ToHexString(notSelectedMimicColor) +"\">" + item.label + " (NotSelected) </color>\n";
-			}
-		}
-	}
-
-	public void Restart() {
-		Application.LoadLevel(0);
+		if (Player.instance.selectedItem == mimic) 
+			Debug.Log("Win!");
+		else
+			Debug.Log("Lose!");
 	}
 }

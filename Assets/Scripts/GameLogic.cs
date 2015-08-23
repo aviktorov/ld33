@@ -6,30 +6,33 @@ public class GameLogic : MonoBehaviour {
 	[Header("Statistics")]
 	public GameObject statisticsPanel;
 	public Text statisticsText;
-	public string trueMimicColor;
-	public string falseMimicColor;
-	public string notSelectedMimicColor;
+	public Color trueMimicColor = Color.green;
+	public Color falseMimicColor = Color.red;
+	public Color notSelectedMimicColor = Color.blue;
+	public Timer timer;
 
 	[Header("Game flow")]
 	public GameObject endButton;
 	public GameObject restartButton;
 
 	public void EndGame() {
+		timer.isStop = true;
 		endButton.SetActive(false);
 		restartButton.SetActive(true);
 
 		statisticsPanel.SetActive(true);
 
 		GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
-		statisticsText.text = "<b>Statistics:</b>\n";
+		statisticsText.text = "<b>Statistics (" + timer.GetTime() + "):</b>\n";
 		foreach (var itemObject in items) {
 			Item item = itemObject.GetComponent<Item>();
 			if (item != null) {
 				if (item.selected) {
-					statisticsText.text += "<color=\"" + (item.isMimic ? trueMimicColor : falseMimicColor) +"\">" + item.label + " " + (item.isMimic ? "(True)" : "(False)") + "</color>\n";
+					statisticsText.text += "<color=\"#" + (item.isMimic ? ColorExt.ToHexString(trueMimicColor) : ColorExt.ToHexString(falseMimicColor)) +"\">";
+					statisticsText.text += item.label + " " + (item.isMimic ? "(True)" : "(False)") + "</color>\n";
 				}
 				else if (item.isMimic) 
-					statisticsText.text += "<color=\"" + notSelectedMimicColor +"\">" + item.label + "(NotSelected) </color>\n";
+					statisticsText.text += "<color=\"#" + ColorExt.ToHexString(notSelectedMimicColor) +"\">" + item.label + " (NotSelected) </color>\n";
 			}
 		}
 	}

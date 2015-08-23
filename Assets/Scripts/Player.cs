@@ -39,7 +39,7 @@ public class Player : MonoSingleton<Player> {
 				}
 
 				labelText.text = "<b>" + item.label + "</b>";
-				priceText.text = "<b>Price:</b> " + item.price + "₽";
+				priceText.text = "<b>Price:</b> " + item.price + " ₽";
 				descriptionText.text = "<b>Descritption:</b>\n" + item.description;
 			}
 

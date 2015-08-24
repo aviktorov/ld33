@@ -30,6 +30,9 @@ ModelImporter:
     100044: TV
     100046: Wardrobe
     100048: WardrobeTop
+    100050: Cube
+    100052: Cube.001
+    100054: Cube.002
     400000: //RootNode
     400002: Armchair
     400004: Bed
@@ -55,6 +58,9 @@ ModelImporter:
     400044: TV
     400046: Wardrobe
     400048: WardrobeTop
+    400050: Cube
+    400052: Cube.001
+    400054: Cube.002
     2300000: Armchair
     2300002: Bed
     2300004: BedMattress
@@ -79,6 +85,9 @@ ModelImporter:
     2300042: TV
     2300044: Wardrobe
     2300046: WardrobeTop
+    2300048: Cube
+    2300050: Cube.001
+    2300052: Cube.002
     3300000: Armchair
     3300002: Bed
     3300004: BedMattress
@@ -103,6 +112,9 @@ ModelImporter:
     3300042: TV
     3300044: Wardrobe
     3300046: WardrobeTop
+    3300048: Cube
+    3300050: Cube.001
+    3300052: Cube.002
     4300000: Bed
     4300002: BedMattress
     4300004: Table
@@ -127,6 +139,9 @@ ModelImporter:
     4300042: Room
     4300044: TV
     4300046: Screen
+    4300048: Cube.002
+    4300050: Cube.001
+    4300052: Cube
   materials:
     importMaterials: 0
     materialName: 0

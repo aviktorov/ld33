@@ -57,8 +57,11 @@ public class TextAnimation : MonoBehaviour {
 		if (show && indentTimer < 0.0f) {
 			if (!done) {
 				if (timer < 0.0f) {
-					if (finalText[index] == '\n')
+					if (finalText[index] == '\n') {
+						showSquare = false;
 						indentTimer = indentDelay;
+						timer = flickTime;
+					}
 					currentText += finalText[index];
 					text.text = currentText + '■';
 					timer = delay;

@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class GameLogic : MonoSingleton<GameLogic> {
+	public InterstageFadeUI interstageFadeUI;
+
 	public GameDB db;
 	public Timer timer;
 	public GameObject suspectButton;
@@ -67,7 +69,7 @@ public class GameLogic : MonoSingleton<GameLogic> {
 	}
 
 	public void Update() {
-		if (Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetKeyDown(KeyCode.Space) && mimic != null)
 			mimic.SelectedDebug();
 	}
 
@@ -79,5 +81,8 @@ public class GameLogic : MonoSingleton<GameLogic> {
 			Debug.Log("Win!");
 		else
 			Debug.Log("Lose!");
+
+		interstageFadeUI.gameObject.SetActive(true);
+		interstageFadeUI.FadeToLevel("End");
 	}
 }

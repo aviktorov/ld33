@@ -9,17 +9,24 @@ public class InterstageFadeUI : MonoBehaviour {
 	public AnimationCurve outTransition = AnimationCurve.EaseInOut(0f, 1f, 0.5f, 0f);
 
 	public void FadeToLevel(string level) {
-		StartCoroutine(DoFade(level));
+		StartCoroutine(DoFadeOut(level));
 	}
 
-	private IEnumerator DoFade(string level) {
-		DontDestroyOnLoad(gameObject);
+	private void Start() {
+		GetComponent<Image>().enabled = true;
+		StartCoroutine(DoFadeIn());
+	}
+
+	private IEnumerator DoFadeIn() {
+		yield return StartCoroutine(DoAnimate(outTransition));
+
+		gameObject.SetActive(false);
+	}
+
+	private IEnumerator DoFadeOut(string level) {
 		yield return StartCoroutine(DoAnimate(inTransition));
 
 		Application.LoadLevel(level);
-		yield return StartCoroutine(DoAnimate(outTransition));
-
-		Destroy(gameObject);
 	}
 
 	private IEnumerator DoAnimate(AnimationCurve curve) {

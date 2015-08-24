@@ -36,6 +36,10 @@ ModelImporter:
     100056: HouseBase
     100058: HouseGeometry
     100060: HouseLobby
+    100062: Camera
+    100064: HouseGlass
+    100066: HouseLobbyGlass
+    100068: Lamp
     400000: //RootNode
     400002: Armchair
     400004: Bed
@@ -67,6 +71,10 @@ ModelImporter:
     400056: HouseBase
     400058: HouseGeometry
     400060: HouseLobby
+    400062: Camera
+    400064: HouseGlass
+    400066: HouseLobbyGlass
+    400068: Lamp
     2300000: Armchair
     2300002: Bed
     2300004: BedMattress
@@ -97,6 +105,8 @@ ModelImporter:
     2300054: HouseBase
     2300056: HouseGeometry
     2300058: HouseLobby
+    2300060: HouseGlass
+    2300062: HouseLobbyGlass
     3300000: Armchair
     3300002: Bed
     3300004: BedMattress
@@ -127,6 +137,8 @@ ModelImporter:
     3300054: HouseBase
     3300056: HouseGeometry
     3300058: HouseLobby
+    3300060: HouseGlass
+    3300062: HouseLobbyGlass
     4300000: Bed
     4300002: BedMattress
     4300004: Table
@@ -157,6 +169,8 @@ ModelImporter:
     4300054: HouseGeometry
     4300056: HouseLobby
     4300058: HouseBase
+    4300060: HouseLobbyGlass
+    4300062: HouseGlass
   materials:
     importMaterials: 0
     materialName: 0

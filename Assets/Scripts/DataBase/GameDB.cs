@@ -52,18 +52,33 @@ public class GameDB : ScriptableObject {
 	[HideInInspector]
 	public List<string> themes = new List<string>();
 
+	[HideInInspector]
+	public List<string> raports = new List<string>();
+
 	public string key = "1soI0_D12vyDzL8AZZSs71nAhPneK09uQw_Qz5JpIscU";
 	
-	public void Import() {
+	public bool Import() {
 		InsecureSecurityCertificatePolicy.Instate();
 		
-		SpreadsheetsService service = new SpreadsheetsService("UnityConnect");
-		WorksheetQuery query = new WorksheetQuery("https://spreadsheets.google.com/feeds/worksheets/" + key + "/public/values");
-		WorksheetFeed feed = service.Query(query);
+		SpreadsheetsService service;
+		WorksheetQuery query;
+		WorksheetFeed feed;
+		try {
+			service = new SpreadsheetsService("UnityConnect");
+			query = new WorksheetQuery("https://spreadsheets.google.com/feeds/worksheets/" + key + "/public/values");
+			feed = service.Query(query);
+		}
+		catch {
+			Debug.LogError("Explosion in imort spreadsheets");
+			return false;
+		}
 		
-		ImportDescriptionsData(service,(WorksheetEntry)feed.Entries[0], descriptions);
-		ImportTypesData(service,(WorksheetEntry)feed.Entries[1], names);
-		ImportLists(service,(WorksheetEntry)feed.Entries[2], types, themes);
+		ImportDescriptionsData(service, (WorksheetEntry)feed.Entries[0], descriptions);
+		ImportTypesData(service, (WorksheetEntry)feed.Entries[1], names);
+		ImportLists(service, (WorksheetEntry)feed.Entries[2], types, themes);
+		ImportRaports(service, (WorksheetEntry)feed.Entries[3], raports);
+		
+		return true;
 	}
 	
 	private void ImportDescriptionsData(SpreadsheetsService service, WorksheetEntry sheet, List<DescriptionData> descriptions) {
@@ -146,4 +161,21 @@ public class GameDB : ScriptableObject {
 			if(cell.Column == 2) themes.Add(cell.Value);
 		}
 	}
+
+	private void ImportRaports(SpreadsheetsService service, WorksheetEntry sheet, List<string> raports) {
+		if(sheet == null) return;
+		AtomLink cellLink = sheet.Links.FindService(GDataSpreadsheetsNameTable.CellRel,null);
+		
+		CellQuery query = new CellQuery(cellLink.HRef.ToString());
+		CellFeed cells = service.Query(query);
+		
+		raports.Clear();
+		foreach(CellEntry cell in cells.Entries) {
+			// skip header
+			if(cell.Row == 1) continue;
+			
+			if(cell.Column == 2) raports.Add(cell.Value);
+		}
+	}
+
 }

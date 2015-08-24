@@ -26,7 +26,7 @@ public class TextAnimation : MonoBehaviour {
 
 	private bool show = false;
 
-	private void Awake () {
+	private void Start () {
 		text = GetComponent<Text>();
 		finalText = text.text;
 		text.text = "";

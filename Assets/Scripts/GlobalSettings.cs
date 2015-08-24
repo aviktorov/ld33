@@ -1,0 +1,26 @@
+﻿using UnityEngine;
+using UnityEditor;
+using System.Collections;
+
+public static class GlobalSettings {
+	public static bool win = false;
+
+	public static GameDB db {
+		get {
+			if (_db == null) {
+				// TODO: Remove
+				GameDB loadDB = ScriptableObject.CreateInstance<GameDB>();
+				if (loadDB.Import()) {
+					_db = loadDB;
+				}
+				else {
+					_db = AssetDatabase.LoadAssetAtPath<GameDB>("Assets/DataBase/Items.asset");
+				}
+			}
+
+			return _db;
+		}
+	}
+
+	private static GameDB _db = null;
+}

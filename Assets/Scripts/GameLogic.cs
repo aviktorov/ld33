@@ -7,14 +7,16 @@ using System.Collections.Generic;
 public class GameLogic : MonoSingleton<GameLogic> {
 	public InterstageFadeUI interstageFadeUI;
 
-	public GameDB db;
 	public Timer timer;
 	public GameObject suspectButton;
 	public string theme;
 
+	private GameDB db;
 	private Item mimic;
 
 	public void Awake() {
+		db = GlobalSettings.db;
+
 		GameObject[] itemObjects = GameObject.FindGameObjectsWithTag("Item");
 		Item[] items = new Item[itemObjects.Length];
 		for (int i = 0; i < items.Length; ++i)
@@ -77,10 +79,7 @@ public class GameLogic : MonoSingleton<GameLogic> {
 		timer.gameObject.SetActive(false);
 		suspectButton.SetActive(false);
 
-		if (Player.instance.selectedItem == mimic) 
-			Debug.Log("Win!");
-		else
-			Debug.Log("Lose!");
+		GlobalSettings.win = Player.instance.selectedItem == mimic;
 
 		interstageFadeUI.gameObject.SetActive(true);
 		interstageFadeUI.FadeToLevel("End");

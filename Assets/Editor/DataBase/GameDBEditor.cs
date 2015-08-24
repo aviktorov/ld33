@@ -17,6 +17,7 @@ public class GameDBEditor : Editor {
 			EditorGUILayout.LabelField(string.Format("Names: {0}", data.names.Count));
 			EditorGUILayout.LabelField(string.Format("Types: {0}", data.types.Count));
 			EditorGUILayout.LabelField(string.Format("Themes: {0}", data.themes.Count));
+			EditorGUILayout.LabelField(string.Format("Raports: {0}", data.raports.Count));
 
 			EditorGUILayout.BeginHorizontal();
 				if(GUILayout.Button("Import")) {
@@ -28,6 +29,7 @@ public class GameDBEditor : Editor {
 					data.names.Clear();
 					data.types.Clear();
 					data.themes.Clear();
+					data.raports.Clear();
 				}
 			EditorGUILayout.EndHorizontal();
 		EditorGUILayout.EndVertical();

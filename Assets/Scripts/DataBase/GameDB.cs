@@ -142,7 +142,6 @@ public class GameDB : ScriptableObject {
 			if(cell.Column == 1) data.type = cell.Value;
 			if(cell.Column == 2) data.name = cell.Value;
 			if(cell.Column == 3) data.price = cell.Value;
-			Debug.Log(data.type + " " + data.name + " " + data.price);
 		}
 	}
 

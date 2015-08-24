@@ -10,7 +10,7 @@ public class TextAnimation : MonoBehaviour {
 	[HideInInspector]
 	public bool end = false;
 
-	public AudioSource audioSource;
+	public AudioSource sound;
 
 	public float pauseDelay = 0.6f;
 	public float delay = 0.02f;
@@ -64,9 +64,9 @@ public class TextAnimation : MonoBehaviour {
 						pauseTimer = pauseDelay;
 						timer = flickTime;
 					}
-					audioSource.volume = Random.Range(0.8f, 1.2f);
-					audioSource.pitch = Random.Range(0.95f, 1.05f);
-					audioSource.Play();
+					if (!sound.isPlaying) {
+						sound.Play();
+					}
 					currentText += finalText[index];
 					text.text = currentText + '■';
 					timer = delay;

@@ -4,6 +4,10 @@ using System.Collections;
 
 public class Player : MonoSingleton<Player> {
 	[Header("Panel")]
+	public AudioSource selectedSound;
+	public AudioSource showInfoSound;
+
+	[Header("Panel")]
 	public Transform panel;
 	public Text labelText;
 	public Text priceText;
@@ -54,6 +58,9 @@ public class Player : MonoSingleton<Player> {
 				if (highlightedItem != null)
 					highlightedItem.Hide();
 
+				if (item != highlightedItem && !showInfoSound.isPlaying) 
+					showInfoSound.Play();
+
 				highlightedItem = item;
 				highlightedItem.Show();
 
@@ -66,6 +73,8 @@ public class Player : MonoSingleton<Player> {
 					if (selectedItem != highlightedItem) {
 						selectedItem = highlightedItem;
 						selectedItem.Select();
+						if (!selectedSound.isPlaying)
+							selectedSound.Play();
 					}
 					else {
 						selectedItem = null;

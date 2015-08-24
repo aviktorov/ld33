@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Menu : MonoBehaviour {
 	public TextAnimation[] texts;
-	public InterstageFade interstageFade;
 	public InterstageFadeUI interstageFadeUI;
 
 	private int index = 0;
@@ -25,9 +24,7 @@ public class Menu : MonoBehaviour {
 		}
 
 		if (Input.anyKeyDown) {
-			interstageFade.gameObject.SetActive(true);
 			interstageFadeUI.gameObject.SetActive(true);
-			interstageFade.FadeToLevel("Main");
 			interstageFadeUI.FadeToLevel("Main");
 		}
 	}

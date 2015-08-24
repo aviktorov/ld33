@@ -7,7 +7,7 @@ public class Room : MonoBehaviour {
 	public float speed = 50.0f;
 	public float speedRotation = 10.0f;
 
-	private Transform cachedCamera;
+	private Transform mainCamera;
 	private int current = 0;
 	private Vector3 targetPosition;
 	private Quaternion targetRotation;
@@ -19,18 +19,18 @@ public class Room : MonoBehaviour {
 		positions = new Vector3[cameras.Length];
 		rotations = new Quaternion[cameras.Length];
 		
-		cachedCamera = cameras[0];
+		mainCamera = GameObject.FindWithTag("MainCamera").transform;
+
 		for (int i = 0; i < cameras.Length; ++i) {
 			positions[i] = cameras[i].position;
 			rotations[i] = cameras[i].rotation;
-			if (i != 0)
-				Destroy(cameras[i].gameObject);
+			Destroy(cameras[i].gameObject);
 		}
 
 		targetPosition = positions[current];
 		targetRotation = rotations[current];
-		cachedCamera.position = targetPosition;
-		cachedCamera.rotation = targetRotation;
+		mainCamera.position = targetPosition;
+		mainCamera.rotation = targetRotation;
 	}
 
 	private void Update () {
@@ -46,12 +46,12 @@ public class Room : MonoBehaviour {
 			targetRotation = rotations[current];
 		}
 		
-		if (Vector3.Distance(cachedCamera.position, targetPosition) > 0.0000001f) {
-			cachedCamera.position = Vector3.MoveTowards(cachedCamera.position, targetPosition, speed * Time.deltaTime);
+		if (Vector3.Distance(mainCamera.position, targetPosition) > 0.0000001f) {
+			mainCamera.position = Vector3.MoveTowards(mainCamera.position, targetPosition, speed * Time.deltaTime);
 		}
 
-		if (Quaternion.Angle(cachedCamera.rotation, targetRotation) > 0.0000001f) {
-			cachedCamera.rotation = Quaternion.RotateTowards(cachedCamera.rotation, targetRotation, speedRotation * Time.deltaTime);
+		if (Quaternion.Angle(mainCamera.rotation, targetRotation) > 0.0000001f) {
+			mainCamera.rotation = Quaternion.RotateTowards(mainCamera.rotation, targetRotation, speedRotation * Time.deltaTime);
 		}
 	}
 }

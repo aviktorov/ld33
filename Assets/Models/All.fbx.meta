@@ -33,6 +33,9 @@ ModelImporter:
     100050: Cube
     100052: Cube.001
     100054: Cube.002
+    100056: HouseBase
+    100058: HouseGeometry
+    100060: HouseLobby
     400000: //RootNode
     400002: Armchair
     400004: Bed
@@ -61,6 +64,9 @@ ModelImporter:
     400050: Cube
     400052: Cube.001
     400054: Cube.002
+    400056: HouseBase
+    400058: HouseGeometry
+    400060: HouseLobby
     2300000: Armchair
     2300002: Bed
     2300004: BedMattress
@@ -88,6 +94,9 @@ ModelImporter:
     2300048: Cube
     2300050: Cube.001
     2300052: Cube.002
+    2300054: HouseBase
+    2300056: HouseGeometry
+    2300058: HouseLobby
     3300000: Armchair
     3300002: Bed
     3300004: BedMattress
@@ -115,6 +124,9 @@ ModelImporter:
     3300048: Cube
     3300050: Cube.001
     3300052: Cube.002
+    3300054: HouseBase
+    3300056: HouseGeometry
+    3300058: HouseLobby
     4300000: Bed
     4300002: BedMattress
     4300004: Table
@@ -142,6 +154,9 @@ ModelImporter:
     4300048: Cube.002
     4300050: Cube.001
     4300052: Cube
+    4300054: HouseGeometry
+    4300056: HouseLobby
+    4300058: HouseBase
   materials:
     importMaterials: 0
     materialName: 0

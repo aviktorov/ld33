@@ -29,14 +29,14 @@ public class GameLogic : MonoSingleton<GameLogic> {
 			chose = true;
 			mimicNumber = Random.Range(0, items.Length);
 			for (int i = 1; i <= 7; i++) {
-				if (items[mimicNumber].type == ("Note" + i)) {
+				if (items[mimicNumber] == null || items[mimicNumber].type == ("Note" + i)) {
 					chose = false;
 					break;
 				}
 			}
 		}
 
-		string theme = db.themes[Random.Range(0, db.themes.Count)];
+		theme = db.themes[Random.Range(0, db.themes.Count)];
 		int currentNumber = 0;
 		foreach (var item in items) {
 			if (item == null) continue;
@@ -55,10 +55,12 @@ public class GameLogic : MonoSingleton<GameLogic> {
 			item.price = names[numNames].price;
 
 			// Set descriptions
-			List<DescriptionData> descriptions = (from d in db.descriptions 
-												where (d.type == item.type && 
-												(mimicNumber == currentNumber || !d.mimic) &&
-												(d.theme == "" || d.theme == theme)) select d).ToList();
+			List<DescriptionData> descriptions = new List<DescriptionData>();
+			foreach (var d in db.descriptions) {
+				if (item.type == d.type && (mimicNumber == currentNumber || !d.mimic) && (d.theme == "" || d.theme == theme)) {
+					descriptions.Add(d);
+				}
+			}
 
 			List<DescriptionData> chosenDescriptions = new List<DescriptionData>();
 			int groupsNumber = descriptions.Max(d => d.group);
@@ -67,14 +69,15 @@ public class GameLogic : MonoSingleton<GameLogic> {
 				foreach (var d in descriptions)
 					if (d.group == i) 
 						descriptionsInGroup.Add(d);
-				if (descriptionsInGroup.Count > 0)
+				if (descriptionsInGroup.Count > 0) {
 					chosenDescriptions.Add(descriptionsInGroup[Random.Range(0, descriptionsInGroup.Count)]);
+				}
 			}
 
 			int descriptionsNumber = 0;
 			item.description = "";
 			for (int i = 0; i < chosenDescriptions.Count; i++) {
-				if (chosenDescriptions[i].probability <= Random.Range(0.0f, 1.0f)) {
+				if (chosenDescriptions[i].probability >= Random.Range(0.0f, 1.0f)) {
 					descriptionsNumber++;
 					item.description += "• " + chosenDescriptions[i].text + "\n";
 				}
@@ -87,8 +90,10 @@ public class GameLogic : MonoSingleton<GameLogic> {
 	}
 
 	public void Update() {
-		if (Input.GetKeyDown(KeyCode.Space) && mimic != null)
+		if (Input.GetKeyDown(KeyCode.Space) && mimic != null) {
+			Debug.Log(mimic.gameObject.name);
 			mimic.SelectedDebug();
+		}
 	}
 
 	public void EndGame() {

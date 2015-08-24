@@ -9,13 +9,14 @@ public static class GlobalSettings {
 		get {
 			if (_db == null) {
 				// TODO: Remove
-				GameDB loadDB = ScriptableObject.CreateInstance<GameDB>();
-				if (loadDB.Import()) {
-					_db = loadDB;
-				}
-				else {
-					_db = AssetDatabase.LoadAssetAtPath<GameDB>("Assets/DataBase/Items.asset");
-				}
+				_db = AssetDatabase.LoadAssetAtPath<GameDB>("Assets/DataBase/Items.asset");
+				//GameDB loadDB = ScriptableObject.CreateInstance<GameDB>();
+				//if (loadDB.Import()) {
+				//	_db = loadDB;
+				//}
+				//else {
+				//	_db = AssetDatabase.LoadAssetAtPath<GameDB>("Assets/DataBase/Items.asset");
+				//}
 			}
 
 			return _db;

@@ -15,6 +15,5 @@ public class ItemEditor : Editor {
 		Item item = (Item) target;
 
 		item.index = EditorGUILayout.Popup("Type", item.index, types);
-		item.type = types[item.index];
 	}
 }

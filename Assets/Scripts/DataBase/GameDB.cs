@@ -116,7 +116,8 @@ public class GameDB : ScriptableObject {
 				int.TryParse(cell.Value, out mimic);
 				data.mimic = mimic == 1;
 			}
-			if(cell.Column == 6) data.theme = cell.Value;
+			if(cell.Column == 6) data.theme = (cell.Value == null ? "" : cell.Value);
+			data.theme = (data.theme == null ? "" : data.theme);
 		}
 	}
 	
@@ -141,6 +142,7 @@ public class GameDB : ScriptableObject {
 			if(cell.Column == 1) data.type = cell.Value;
 			if(cell.Column == 2) data.name = cell.Value;
 			if(cell.Column == 3) data.price = cell.Value;
+			Debug.Log(data.type + " " + data.name + " " + data.price);
 		}
 	}
 

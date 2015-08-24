@@ -19,13 +19,29 @@ public class GameLogic : MonoSingleton<GameLogic> {
 
 		GameObject[] itemObjects = GameObject.FindGameObjectsWithTag("Item");
 		Item[] items = new Item[itemObjects.Length];
-		for (int i = 0; i < items.Length; ++i)
+		for (int i = 0; i < items.Length; ++i) {
 			items[i] = itemObjects[i].GetComponent<Item>();
+		}
+
+		int mimicNumber = 0;
+		bool chose = false;
+		while (!chose) {
+			chose = true;
+			mimicNumber = Random.Range(0, items.Length);
+			for (int i = 1; i <= 7; i++) {
+				if (items[mimicNumber].type == ("Note" + i)) {
+					chose = false;
+					break;
+				}
+			}
+		}
 
 		string theme = db.themes[Random.Range(0, db.themes.Count)];
-		int mimicNumber = Random.Range(0, items.Length);
 		int currentNumber = 0;
 		foreach (var item in items) {
+			if (item == null) continue;
+			item.type = db.types[item.index];
+
 			// Set mimic
 			if (mimicNumber == currentNumber) {
 				mimic = item;

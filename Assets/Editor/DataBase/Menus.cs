@@ -6,10 +6,10 @@ using System.Collections;
 using System.Collections.Generic;
 
 public static class Menus {
-	[MenuItem("Assets/Create/Room Game/New Game DB Spreadsheet")]
+	[MenuItem("Assets/Create/Room Game/New Game DB")]
 	public static void CreateGameDBSpreadsheet() {
-		GameDBSpreadsheet db = ScriptableObject.CreateInstance<GameDBSpreadsheet>();
-		AssetDatabase.CreateAsset(db,"Assets/NewGameDBSpreadsheet.asset");
+		GameDB db = ScriptableObject.CreateInstance<GameDB>();
+		AssetDatabase.CreateAsset(db,"Assets/NewGameDB.asset");
 		AssetDatabase.SaveAssets();
 		
 		EditorUtility.FocusProjectWindow();

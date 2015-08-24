@@ -14,20 +14,20 @@ public class Player : MonoSingleton<Player> {
 
 	public UnityStandardAssets.ImageEffects.Fisheye fisheye;
 
-	private Camera cachedCamera;
+	private Camera mainCamera;
 	private Item highlightedItem;
 
 	private Vector2 intensity = Vector2.zero;
 
 	private void Start() {
-		cachedCamera = Camera.main;
+		mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
 	}
 
 	private void Update () {
 		RaycastHit hitItem;
 		RaycastHit hitWall;
 
-		Vector2 screenSize = new Vector2(cachedCamera.pixelWidth, cachedCamera.pixelHeight);
+		Vector2 screenSize = new Vector2(mainCamera.pixelWidth, mainCamera.pixelHeight);
 
 		// Fisheye for mousePosition
 		float oneOverBaseSize = 80.0f / 512.0f;
@@ -45,7 +45,7 @@ public class Player : MonoSingleton<Player> {
 		fisheyeMousePosition.x *= screenSize.x;
 		fisheyeMousePosition.y *= screenSize.y;
 
-		Ray ray = cachedCamera.ScreenPointToRay(fisheyeMousePosition);
+		Ray ray = mainCamera.ScreenPointToRay(fisheyeMousePosition);
 		bool wallCollided = Physics.Raycast(ray, out hitWall, Mathf.Infinity, 1 << LayerMask.NameToLayer("Wall"));
 
 		if (Physics.Raycast(ray, out hitItem, Mathf.Infinity, 1 << LayerMask.NameToLayer("Item")) && (!wallCollided || hitItem.distance < hitWall.distance)) {
@@ -79,7 +79,7 @@ public class Player : MonoSingleton<Player> {
 			}
 
 			// Place a panel not on the edge and with offset.
-			Vector3 itemPosition = cachedCamera.WorldToScreenPoint(hitItem.transform.position);
+			Vector3 itemPosition = mainCamera.WorldToScreenPoint(hitItem.transform.position);
 
 			float dirOffset = 0.0f;
 			if (itemPosition.x < screenSize.x / 2)

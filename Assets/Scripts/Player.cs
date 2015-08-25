@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System.Collections;
 
 public class Player : MonoSingleton<Player> {
@@ -52,7 +53,9 @@ public class Player : MonoSingleton<Player> {
 		Ray ray = mainCamera.ScreenPointToRay(fisheyeMousePosition);
 		bool wallCollided = Physics.Raycast(ray, out hitWall, Mathf.Infinity, 1 << LayerMask.NameToLayer("Default"));
 
-		if (Physics.Raycast(ray, out hitItem, Mathf.Infinity, 1 << LayerMask.NameToLayer("Item")) && (!wallCollided || hitItem.distance < hitWall.distance)) {
+		if (Physics.Raycast(ray, out hitItem, Mathf.Infinity, 1 << LayerMask.NameToLayer("Item")) && 
+				(!wallCollided || hitItem.distance < hitWall.distance) && 
+				!EventSystem.current.IsPointerOverGameObject()) {
 			Item item = hitItem.transform.GetComponent<Item>();
 			if (item != null) {
 				if (highlightedItem != null)

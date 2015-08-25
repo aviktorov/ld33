@@ -2,6 +2,23 @@
 using System.Collections.Generic;
 
 [System.Serializable]
+public class DescriptionData {
+	public string type;
+	public float probability;
+	public string text;
+	public int group;
+	public bool mimic;
+	public string theme;
+}
+
+[System.Serializable]
+public class NameData {
+	public string type;
+	public string name;
+	public string price;
+}
+
+[System.Serializable]
 public class GameDBCSV : ScriptableObject
 {
 	[HideInInspector]

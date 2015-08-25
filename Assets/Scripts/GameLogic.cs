@@ -64,6 +64,8 @@ public class GameLogic : MonoSingleton<GameLogic> {
 				descriptions.Add(d);
 			}
 			
+			if (descriptions.Count == 0) continue;
+			
 			List<DescriptionData> chosenDescriptions = new List<DescriptionData>();
 			int groupsNumber = descriptions.Max(d => d.group);
 			for (int i = 0; i <= groupsNumber; i++) {

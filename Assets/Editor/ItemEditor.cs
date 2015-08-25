@@ -7,7 +7,7 @@ public class ItemEditor : Editor {
 	private string[] types;
 
 	public void OnEnable () {
-		GameDB db = AssetDatabase.LoadAssetAtPath<GameDB>("Assets/DataBase/Items.asset");
+		GameDBCSV db = AssetDatabase.LoadAssetAtPath<GameDBCSV>("Assets/DataBase/ItemsCSV.asset");
 		types = db.types.ToArray();
 	}
 

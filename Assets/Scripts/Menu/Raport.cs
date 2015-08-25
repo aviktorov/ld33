@@ -14,7 +14,7 @@ public class Raport : MonoBehaviour {
 	private Text text;
 
 	private void Awake() {
-		GameDB db = GlobalSettings.db;
+		GameDBCSV db = GlobalSettings.db;
 
 		text = GetComponent<Text>();
 

@@ -4,7 +4,7 @@ using System.Collections;
 public static class GlobalSettings {
 	public static bool win = false;
 
-	public static GameDB db {
+	public static GameDBCSV db {
 		get {
 			if (_db == null) {
 				// TODO: Remove
@@ -22,5 +22,5 @@ public static class GlobalSettings {
 		}
 	}
 
-	private static GameDB _db = null;
+	private static GameDBCSV _db = null;
 }

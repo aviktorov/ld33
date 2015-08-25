@@ -11,7 +11,7 @@ public class GameLogic : MonoSingleton<GameLogic> {
 	public GameObject suspectButton;
 	public string theme;
 
-	private GameDB db;
+	private GameDBCSV db;
 	private Item mimic;
 
 	public void Awake() {
@@ -28,7 +28,7 @@ public class GameLogic : MonoSingleton<GameLogic> {
 		while (!chose) {
 			chose = true;
 			mimicNumber = Random.Range(0, items.Length);
-			for (int i = 1; i <= 7; i++) {
+			for (int i = 1; i <= 8; i++) {
 				if (items[mimicNumber] == null || items[mimicNumber].type == ("Note" + i)) {
 					chose = false;
 					break;

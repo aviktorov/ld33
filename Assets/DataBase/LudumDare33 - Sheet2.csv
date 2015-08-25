@@ -1,0 +1,70 @@
+type,name,price
+TV,"LCD ""Horizont""",222
+TV,"LCD ""Zakat""",249
+TV,"LCD ""Vecher""",343
+TV,"PDP ""Record-A""",165
+TV,"PDP ""KVN-90""",190
+TV,"LCD ""Rubin""",420
+Photo,Family photo,46
+Photo,College photo,68
+Photo,Friend photo,24
+Photo,Building photo,24
+Photo,Animal photo,65
+Diploma,Diploma,175
+Poster,Poster,55
+Locker,"Locker ""Belukha""",274
+Locker,"Locker ""Kluchevskoy""",258
+Locker,"Locker ""Altyn-Tu""",280
+Locker,"Cabinet ""Babyrgan""",262
+Locker,"Cabinet ""Goreliy""",231
+Carpet,"Carpet ""Baikal""",309
+Carpet,"Carpet ""Teletskoe""",318
+Carpet,"Carpet ""Issyk-Kul""",329
+Carpet,"Carpet ""Baikal""",294
+Carpet,"Carpet ""Shavlinsky""",299
+Chair,"Chair ""Procrustes""",167
+Chair,"Chair ""Zeus""",163
+Chair,"Chair ""Icarus""",134
+Chair,"Chair ""Herostrat""",177
+Chair,"Chair ""Polyphemus""",157
+Table,"Table ""Masha""",197
+Table,"Table ""Anastasia""",227
+Table,"Table ""Nadya""",220
+Table,"Table ""Zhenya""",182
+Table,"Table ""Olga""",213
+Chandelier,"Chandelier ""Jupiter""",139
+Chandelier,"Chandelier ""Mars""",152
+Chandelier,"Chandelier ""Pluto""",129
+Chandelier,"Chandelier ""Mercurius""",133
+Chandelier,"Chandelier ""Saturnus""",127
+Bed,"Bed ""Lust""",242
+Bed,"Bed ""Gluttony""",270
+Bed,"Bed ""Sloth""",238
+Bed,"Bed ""Envy""",265
+Bed,"Bed ""Pride""",237
+Sofa,"Sofa ""King""",146
+Sofa,"Sofa ""Queen""",138
+Sofa,"Sofa ""Prince""",173
+Sofa,"Sofa ""Princess""",134
+Armchair,"Armchair ""Alpha""",128
+Armchair,"Armchair ""Beta""",160
+Armchair,"Armchair ""Gamma""",175
+Armchair,"Armchair ""Delta""",143
+Clock,"Clock ""Pikabu""",54
+Clock,"Clock ""Lolcats""",47
+Clock,"Clock ""Imgur""",33
+Book,The Art of Game Design,64
+Book,Das Glasperlenspiel,58
+Book,La Caste des Méta-Barons,46
+Book,Watchmen,50
+Book,Sword of Truth,49
+Book,MythAdventures,67
+Book,Origami,65
+Note1,Note,5
+Note2,Note,5
+Note3,Note,5
+Note4,Note,5
+Note5,Note,5
+Note6,Note,5
+Note7,Note,5
+Note8,Note,5

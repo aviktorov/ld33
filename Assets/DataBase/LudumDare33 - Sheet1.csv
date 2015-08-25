@@ -1,0 +1,124 @@
+type,probability,text,group,mimic,theme
+TV,0.75,Wow! This is brand new TV! And they added remote control to it.,0,0,
+TV,0.75,"Tightly screwed. Apparently, protection against thieves.",1,0,
+TV,0.75,"It's new edition, now with TrueColor. Bye-bye, black'n'white age.",2,0,
+TV,0.75,Here is highly humid. I notice drops on the screen,3,0,humid
+TV,0.75,"The screen is dusty, but it has not been wiped.",4,0,dusty
+TV,0.75,Never heard of this model. M1-M1-Kremlin.,5,1,
+TV,1,"I don't know if this possible, but this TV flows. Maybe broken?",6,1,humid
+TV,1,This dust lies even at sides of TV.,7,1,dusty
+Photo,0.75,I think this photo was taken near Yakutia.,0,0,
+Photo,0.75,Such a nice composition.,1,0,
+Photo,0.75,"This photo was taken years ago with ""Smena-88M"". Nice camera.",2,0,
+Photo,0.75,"Hey! I knew this place. There was a nice meat bar before. ""Burlinka"", I think.",3,0,
+Photo,0.75,Photo twisted. Like it was plunged into the water and dried.,4,0,humid
+Photo,0.75,Covered in dust. Seems no one has payed attention to it.,5,0,dusty
+Photo,0.75,This photo creeping me out. the composition completely wrong,6,1,
+Photo,0.75,Photo looks like new though in 40 years old. Maybe retouched?,7,1,
+Photo,1,It is so wet than I am sure it can squeezed like a rag.,8,1,humid
+Photo,1,This dust looks more like spores. I hope I won't inhale it.,9,1,dusty
+Diploma,0.75,Diploma of Doctor of Science sausage production.,0,0,
+Diploma,0.75,Diploma of Engineer of Economy of the third degree.,0,0,
+Diploma,0.75,Diploma of Bachelor of Astrology.,0,0,
+Diploma,0.75,"Strange, but Helper shows its price. Apparently, education costs money.",1,0,
+Diploma,0.75,Wet and in drops. Like everything there.,2,0,humid
+Diploma,0.75,Heh. My diploma too covered in dust. Never used it.,3,0,dusty
+Diploma,0.75,It's signed by King Burger. What kind of diploma is it?,4,1,
+Diploma,1,Ink is clear and readable thougn diploma is fully wet.,5,1,humid
+Diploma,1,Document looks like paper version of Frankenstein's Monster.,6,1,dusty
+Poster,0.75,"Cheap poster, nothign to look on.",0,0,
+Poster,0.75,"Post soviet rock poster. Rock hard, work hard.",0,0,
+Poster,0.75,"""Live single or die coop."" ... wat? What does that mean?",0,0,
+Poster,0.75,This poster seen better times.,1,0,
+Poster,0.75,"Oh, I like this one. ""The Irony of Fate 7"". Classic does not get old.",2,0,
+Poster,0.75,A piece of wet paper on a wall with some picture imprinted on it.,3,0,humid
+Poster,0.75,Helper says poster's price is nearly $200.,4,1,
+Poster,1,Wet colored rag. But helper says it is poster. Looks like rag to me.,5,1,humid
+Poster,1,Poster looks like dirty dusty rag. Why does it hang on wall?,6,1,dusty
+Locker,0.75,Big sturdy locker. I bet there are some secret shelves.,0,0,
+Locker,0.75,"Stuff, stuff, stuff. Nothing suspicious.",1,0,
+Locker,0.75,Heh. Some skeletons like lockers more than closets.,2,0,
+Locker,0.75,Board became wider because of humidity.,3,0,humid
+Locker,0.75,Seems there was nobody was around for some time. Shelves are dusty.,4,0,dusty
+Locker,0.75,Some moss between shelves. There is too humid in this room.,5,1,
+Locker,1,Looks more like broken water tank than a locker. Maybe some water have been poured inside.,6,1,humid
+Locker,1,I think some bugs had settled inside boards. It must be source of contant dust inside and outside.,7,1,dusty
+Carpet,0.75,I remember some old tradition to hung carpet on the wall.,0,0,
+Carpet,0.75,This one quite a rare. Turkish one. Expensive.,1,0,
+Carpet,0.75,It looks like covered with moss. Or maybe it just really old.,2,0,
+Carpet,0.75,Maybe vacuum cleaner is broken? Why carpet is so dirty?,4,0,dusty
+Carpet,0.75,This carpet some kinda... wrong. It has some bumps on it.,5,1,
+Carpet,1,"Strangely, but carpet is most dry thing there.",6,1,humid
+Carpet,1,This dust gathered like bumps on carpet.,7,1,dusty
+Chair,0.75,Greek series. Sturdy and reliable.,0,0,
+Chair,0.75,"""Olymp"" series were created at russian plant as collaboration between Greece and our country.",1,0,
+Chair,0.75,Those chairs are commonly used. I need to pay more attention.,2,0,
+Chair,0.75,I see drops of water sprayed on chair.,3,0,humid
+Chair,0.75,I see dust on chair.,4,0,dusty
+Chair,0.75,Chair legs twisted. They are not supposed to.,5,1,
+Chair,1,"Is it water chair? Helper says some water leaking out it, but I don't see it.",6,1,humid
+Chair,1,"Dust gathered only on chair legs. ""Sitplace"" itself very clean.",7,1,dusty
+Table,0.75,Reliable table. Named after women designer.,0,0,
+Table,0.75,Awful. I think it was purchased through third parties. Can crumble any moment.,0,0,
+Table,0.75,"Table is full of spots. Food, probably.",1,0,
+Table,0.75,I used to develop games on table like that. We spent many game jams together.,2,0,
+Table,0.75,"I noticed that table were cleaned several times, but to no avail. It has several layers of dust. Like Photoshop.",3,0,dusty
+Table,0.75,Helper says table is consistent. No screws or nails. Solid piece of whatever it made of.,4,1,
+Table,1,"Though most things there are wet, table itself is dry.",5,1,humid
+Table,1,Helper says dust collected inside shelf.,6,1,dusty
+Chandelier,0.75,Very nice and pretty lookin chandelier.,0,0,
+Chandelier,0.75,"I doubt that it shall fall, but if it would happen, that will be awful.",1,0,
+Chandelier,0.75,They named these models after planets. Though my opinion that Pluto is not a planet.,2,0,
+Chandelier,0.75,"Some drops on chandelier's ""circles"".",3,0,humid
+Chandelier,1,Helper says chandelier has some water inside.,4,1,humid
+Chandelier,1,"Despite everything in room covered in dust, chandelier is clean as if new.",5,1,dusty
+Bed,0.75,"People who named these beds had a strange kind of humor. Nevertheless, beds are well sold.",0,0,
+Bed,0.75,This bed had someone's silhouette imprinted on surface.,1,0,
+Bed,0.75,It is wet. Why everything there is covered in drops?,2,0,humid
+Bed,0.75,Covered in some dust.,3,0,dusty
+Bed,1,"Bed is not wet, if look carefully. It is covered by some water film.",4,1,humid
+Bed,1,Dust gathered on surface of bed in some bumps on it.,5,1,dusty
+Sofa,0.75,Royal series. Expensive and comfortable furniture.,0,0,
+Sofa,0.75,"Sofa looks old, but reliable.",1,0,
+Sofa,0.75,"There are some dirty jokes about relaxing with ""Royals"".",2,0,
+Sofa,0.75,"Like everything here, dust had ""declaired"" its rights for this sofa.",3,0,dusty
+Sofa,1,Sofa looks like sponge. All wet and in drops.,4,1,humid
+Sofa,1,Dust covers only armrests.,5,1,dusty
+Armchair,0.75,"Armchairs' ""math"" series. Designed for scientists andother smart people.",0,0,
+Armchair,0.75,"I don't have this chair at my home. I prefer ""industrial"" design.",1,0,
+Armchair,0.75,Somtimes i just want to sit in chair and sleep several day in a row.,2,0,
+Armchair,0.75,Covered in dust.,3,0,dusty
+Armchair,1,This is the only dry piace of furniture around.,4,1,humid
+Armchair,1,Dust covers only armrests and back.,5,1,dusty
+Clock,0.75,Series named after greatest procrastination resources.,0,0,
+Clock,0.75,"Everyone keeps hanging clocks on the wall, though it simplier to ask Helper current time.",1,0,
+Clock,0.75,People says that were small version of clocks wearable of hands.,2,0,
+Clock,0.75,Every tick of clock create a smal droplet of water which falls down.,3,0,humid
+Clock,0.75,Every tick of clock create a smal wave of falling dust.,4,0,dusty
+Clock,1,There is giant water bruise behind the clock.,5,1,humid
+Clock,1,"Though dust is falling with every tick, it seems clock remains covered in dust.",6,1,dusty
+Book,0.75,My favorite. I read it several times.,0,0,
+Book,0.75,Never had enough time to read this book.,0,0,
+Book,0.75,Just recently started to read it. Very interesting.,0,0,
+Book,0.75,One of many books in this house.,1,0,
+Book,0.75,This book looks old.,2,0,
+Book,0.75,Such a pity than book got twisted and curved because of high humidity.,3,0,humid
+Book,0.75,Thick layer of dust cover this good book.,4,0,dusty
+Book,0.75,Helper says this book is not registered.,5,1,
+Book,1,"Book lies in puddle, but pages looks dry.",6,1,humid
+Book,1,"Though book covered in dust, dust itself lies on it in triangle shapes.",7,1,dusty
+Note1,1,"22/08. Ok, things to do today:
+ - Wash dishes;
+ - Order some food cans. Preferably with vegetables, Helper said I need more nutrients;
+ - Slacking.",0,0,
+Note2,1,"23/08. Today were delivery. Food cans, books, printed photos, etc. Stored them inside locker. Received message from Head. He said next delivery will be within a week.",0,0,
+Note3,1,24/08. I forgot where I put beans can. Definetely was in locker. Maybe ate it earlier. Must not forget to put on order list. I should create some sort system for food.,0,0,
+Note4,1,"25/08/ Bad day. Sliped on some puddle and hurt a leg.
+It became stuffy inside, so I tried o open a window. But my hand sliped, I step back, slipped and felt down. In result - hurted leg and hurted pride.",0,0,humid
+Note4,1,"25/08/ It is really dusty here. Must take a day and clean the stuff. Anyway, I'll do it later.
+I think I got food poisoning. Must be outdated cans. Bad luck, I guess. Feel ill and will postpone water cleaning.",0,0,dusty
+Note5,1,"26/08 I lost a touch with Head. Technically, everything is alright, but Helper produces some white noise when I try to connect. 
+I wanted to ask for some meds. I got sick for some reason. I will wait for next delivery and gonna ask directly.",0,0,
+Note6,1,27/08 My leg hurts as hell. Here appeared some kind a tropical effect. Stuffily and humid. I just want to sleep.,0,0,humid
+Note6,1,27/08 I can't eat. Feel very sick. Moreover I started to cougn. Really strong cough.,0,0,dusty
+Note7,1,28/08 Helper activated isolation period. To sick to move out. Hope someone will get here and help.,0,0,

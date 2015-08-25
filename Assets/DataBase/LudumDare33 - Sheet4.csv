@@ -1,0 +1,19 @@
+type,text
+prolog,"Issue: mimic
+Probability: 98%
+Location: DE4C-12BB
+Task: determine suspicious object, then secure it.
+Description: Helper DE4C-12BB initialised isolation. High probability of mimicred monster."
+"good
+","Issue: mimic
+Location: DE4C-12BB
+Task: determine suspicious object, then secure it.
+Result: positive
+Actions: removing isolation, clearing location, funeral
+
+Man walked in and looked at mimic. ""So, you are the monster?"" he asked."
+bad,"Issue: mimic
+Location: DE4C-12BB
+Task: determine suspicious object, then secure it.
+Result: negative
+Actions: keeping isolation, searching for ""mimiс"" object"

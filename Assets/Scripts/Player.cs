@@ -68,6 +68,8 @@ public class Player : MonoSingleton<Player> {
 					if (selectedItem != null) {
 						selectedItem.Unselect();
 						selectedItem.Hide();
+						if (!selectedSound.isPlaying)
+							selectedSound.Play();
 					}
 
 					if (selectedItem != highlightedItem) {

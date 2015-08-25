@@ -50,7 +50,7 @@ public class Player : MonoSingleton<Player> {
 		fisheyeMousePosition.y *= screenSize.y;
 
 		Ray ray = mainCamera.ScreenPointToRay(fisheyeMousePosition);
-		bool wallCollided = Physics.Raycast(ray, out hitWall, Mathf.Infinity, 1 << LayerMask.NameToLayer("Wall"));
+		bool wallCollided = Physics.Raycast(ray, out hitWall, Mathf.Infinity, 1 << LayerMask.NameToLayer("Default"));
 
 		if (Physics.Raycast(ray, out hitItem, Mathf.Infinity, 1 << LayerMask.NameToLayer("Item")) && (!wallCollided || hitItem.distance < hitWall.distance)) {
 			Item item = hitItem.transform.GetComponent<Item>();

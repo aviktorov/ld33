@@ -57,28 +57,21 @@ public class GameDB : ScriptableObject {
 
 	public string key = "1soI0_D12vyDzL8AZZSs71nAhPneK09uQw_Qz5JpIscU";
 	
-	public bool Import() {
+	public void Import() {
 		InsecureSecurityCertificatePolicy.Instate();
 		
 		SpreadsheetsService service;
 		WorksheetQuery query;
 		WorksheetFeed feed;
-		try {
-			service = new SpreadsheetsService("UnityConnect");
-			query = new WorksheetQuery("https://spreadsheets.google.com/feeds/worksheets/" + key + "/public/values");
-			feed = service.Query(query);
-		}
-		catch {
-			Debug.LogError("Explosion in imort spreadsheets");
-			return false;
-		}
-		
+
+		service = new SpreadsheetsService("UnityConnect");
+		query = new WorksheetQuery("https://spreadsheets.google.com/feeds/worksheets/" + key + "/public/values");
+		feed = service.Query(query);
+
 		ImportDescriptionsData(service, (WorksheetEntry)feed.Entries[0], descriptions);
 		ImportTypesData(service, (WorksheetEntry)feed.Entries[1], names);
 		ImportLists(service, (WorksheetEntry)feed.Entries[2], types, themes);
 		ImportRaports(service, (WorksheetEntry)feed.Entries[3], raports);
-		
-		return true;
 	}
 	
 	private void ImportDescriptionsData(SpreadsheetsService service, WorksheetEntry sheet, List<DescriptionData> descriptions) {
@@ -142,7 +135,7 @@ public class GameDB : ScriptableObject {
 			if(cell.Column == 1) data.type = cell.Value;
 			if(cell.Column == 2) data.name = cell.Value;
 			if(cell.Column == 3) data.price = cell.Value;
-		}
+			}
 	}
 
 	private void ImportLists(SpreadsheetsService service, WorksheetEntry sheet, List<string> types, List<string> themes) {

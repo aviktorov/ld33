@@ -90,6 +90,11 @@ public class GameLogic : MonoSingleton<GameLogic> {
 	}
 
 	public void Update() {
+		if (Player.instance.selectedItem != null)
+			suspectButton.SetActive(true);
+		else 
+			suspectButton.SetActive(false);
+			
 		if (Input.GetKeyDown(KeyCode.Space) && mimic != null) {
 			Debug.Log(mimic.gameObject.name);
 			mimic.SelectedDebug();

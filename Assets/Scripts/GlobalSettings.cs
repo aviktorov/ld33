@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEditor;
 using System.Collections;
 
 public static class GlobalSettings {
@@ -9,7 +8,7 @@ public static class GlobalSettings {
 		get {
 			if (_db == null) {
 				// TODO: Remove
-				_db = AssetDatabase.LoadAssetAtPath<GameDB>("Assets/DataBase/Items.asset");
+				_db = GameObject.FindWithTag("LoadDB").GetComponent<LoadDB>().db;
 				//GameDB loadDB = ScriptableObject.CreateInstance<GameDB>();
 				//if (loadDB.Import()) {
 				//	_db = loadDB;

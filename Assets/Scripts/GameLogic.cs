@@ -28,7 +28,7 @@ public class GameLogic : MonoSingleton<GameLogic> {
 		while (!chose) {
 			chose = true;
 			mimicNumber = Random.Range(0, items.Length);
-			for (int i = 1; i <= 8; i++) {
+			for (int i = 1; i <= 7; i++) {
 				if (items[mimicNumber] == null || items[mimicNumber].type == ("Note" + i)) {
 					chose = false;
 					break;
@@ -47,7 +47,7 @@ public class GameLogic : MonoSingleton<GameLogic> {
 				mimic = item;
 				item.mimic = true;
 			}
-
+			
 			// Set name and price
 			List<NameData> names = (from name in db.names where name.type == item.type select name).ToList();
 			int numNames = Random.Range(0, names.Count);
@@ -57,11 +57,13 @@ public class GameLogic : MonoSingleton<GameLogic> {
 			// Set descriptions
 			List<DescriptionData> descriptions = new List<DescriptionData>();
 			foreach (var d in db.descriptions) {
-				if (item.type == d.type && (mimicNumber == currentNumber || !d.mimic) && (d.theme == "" || d.theme == theme)) {
-					descriptions.Add(d);
-				}
+				if(item.type != d.type) continue;
+				if(d.mimic && mimicNumber != currentNumber) continue;
+				if(d.theme != "" && d.theme != theme) continue;
+				
+				descriptions.Add(d);
 			}
-
+			
 			List<DescriptionData> chosenDescriptions = new List<DescriptionData>();
 			int groupsNumber = descriptions.Max(d => d.group);
 			for (int i = 0; i <= groupsNumber; i++) {
@@ -73,7 +75,7 @@ public class GameLogic : MonoSingleton<GameLogic> {
 					chosenDescriptions.Add(descriptionsInGroup[Random.Range(0, descriptionsInGroup.Count)]);
 				}
 			}
-
+			
 			int descriptionsNumber = 0;
 			item.description = "";
 			for (int i = 0; i < chosenDescriptions.Count; i++) {

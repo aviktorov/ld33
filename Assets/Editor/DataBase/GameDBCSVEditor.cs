@@ -58,27 +58,6 @@ public class GameDBCSVEditor : Editor
 		ImportTypesData(data.nameData,data.names);
 		ImportListData(data.themeData,data.types,data.themes);
 		ImportRaportData(data.raportData,data.raports);
-		/*
-		foreach(DescriptionData desc in data.descriptions) {
-			Debug.Log(string.Format("Desc: {0}, {1}, {2}, {3}, {4}, {5}",desc.type,desc.probability,desc.text,desc.group,desc.mimic,desc.theme));
-		}
-		
-		foreach(NameData n in data.names) {
-			Debug.Log(string.Format("Name: {0}, {1}, {2}",n.type,n.name,n.price));
-		}
-		
-		foreach(string type in data.types) {
-			Debug.Log(string.Format("Type: {0}",type));
-		}
-		
-		foreach(string theme in data.themes) {
-			Debug.Log(string.Format("Theme: {0}",theme));
-		}
-		
-		foreach(string raport in data.raports) {
-			Debug.Log(string.Format("Raport: {0}",raport));
-		}
-		/**/
 	}
 	
 	void ImportDescriptionData(TextAsset csv,List<DescriptionData> descriptions)

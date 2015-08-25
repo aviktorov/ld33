@@ -42,7 +42,7 @@ public class MusicPlayer :  MonoSingleton<MusicPlayer> {
 			switch(mode) {
 				case MusicPlayerMode.FadingIn: StartPlaying(); break;
 				case MusicPlayerMode.Playing: StartFadingOut(); break;
-				case MusicPlayerMode.FadingOut: StartFadingIn(tracks[++trackIndex % (tracks.Length - 1)]); break;
+				case MusicPlayerMode.FadingOut: StartFadingIn(tracks[(tracks.Length == 1) ? 0 : (++trackIndex % (tracks.Length - 1))]); break;
 			}
 		}
 

@@ -11,13 +11,12 @@ public static class OutlinesMenu{
 
 		foreach (var itemObject in itemObjects) {
 			Transform cachedTransform = itemObject.GetComponent<Transform>();
-			Mesh mesh = itemObject.GetComponent<MeshFilter>().mesh;
+			Mesh mesh = itemObject.GetComponent<MeshFilter>().sharedMesh;
 
-			GameObject outline = new GameObject("Outlines");
+			GameObject outline = new GameObject("Outline");
 			outline.transform.SetParent(cachedTransform, false);
 
-			outline.AddComponent<MeshRenderer>();
-			Mesh outlineMesh = outline.AddComponent<MeshFilter>().mesh;
+			Mesh outlineMesh = new Mesh();
 
 			Vector3[] vertices = mesh.vertices;
 			Vector3[] normals = mesh.normals;
@@ -51,13 +50,11 @@ public static class OutlinesMenu{
 			outlineMesh.triangles  = outlineTriangles;
 			outlineMesh.normals = outlineNormals;
 
-			outline.SetActive(false);
+			MeshFilter meshFilter = outline.AddComponent<MeshFilter>();
+			meshFilter.mesh = outlineMesh;
+			outline.AddComponent<MeshRenderer>();
 
-			Item item = itemObject.GetComponent<Item>();
-			if (item != null) {
-				item.outline = outline;
-				item.outlineRenderer = outline.GetComponent<Renderer>();
-			}
+			outline.SetActive(false);
 		}
 	}
 }

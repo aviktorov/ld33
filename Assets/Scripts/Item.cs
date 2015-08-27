@@ -20,6 +20,8 @@ public class Item : MonoBehaviour {
 	private bool selectedDebug = false;
 
 	private void Awake() {
+		outline = GetComponent<Transform>().Find("Outline").gameObject;
+		outlineRenderer = outline.GetComponent<Renderer>();;
 		outlineRenderer.sharedMaterial = OutlineSettings.instance.highlightedMaterial;
 		outlineRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 	}

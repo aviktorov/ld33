@@ -3,17 +3,23 @@
 using UnityEngine;
 using UnityEditor;
 using System.Collections;
+using System.Collections.Generic;
 
 public static class OutlinesMenu{
 	[MenuItem("Impostor/Create Outlines")]
 	public static void CreateOutlines() {
 		GameObject[] itemObjects = GameObject.FindGameObjectsWithTag("Item");
+		
+		GameObject[] outlineObjects = HardFindGameObjectsWithTag("Outline");
+		foreach(var outlineObject in outlineObjects)
+			GameObject.DestroyImmediate(outlineObject);
 
 		foreach (var itemObject in itemObjects) {
 			Transform cachedTransform = itemObject.GetComponent<Transform>();
 			Mesh mesh = itemObject.GetComponent<MeshFilter>().sharedMesh;
 
 			GameObject outline = new GameObject("Outline");
+			outline.tag = "Outline";
 			outline.transform.SetParent(cachedTransform, false);
 
 			Mesh outlineMesh = new Mesh();
@@ -30,7 +36,7 @@ public static class OutlinesMenu{
 			
 			float maxScale = Mathf.Max(Mathf.Abs(cachedTransform.localScale.x), Mathf.Abs(cachedTransform.localScale.y), Mathf.Abs(cachedTransform.localScale.z));
 			for (int i = 0; i < outlineVertices.Length; i++) 
-				outlineVertices[i] = vertices[i] + normals[i] * OutlineSettings.instance.width / maxScale;
+				outlineVertices[i] = vertices[i] + normals[i] * 0.025f / maxScale;
 
 			for (int i = 0; i < outlineUV.Length; i++)
 				outlineUV[i] = uv[i];
@@ -56,6 +62,34 @@ public static class OutlinesMenu{
 
 			outline.SetActive(false);
 		}
+	}
+
+	static private GameObject[] HardFindGameObjectsWithTag(string tag) {
+		List<GameObject> result = new List<GameObject>();
+		foreach (GameObject gameObject in GetAllObjectsInScene(false)) {
+			if (gameObject.tag == tag)
+				result.Add(gameObject);
+		}
+		return result.ToArray();
+	}
+
+	public static List<GameObject> GetAllObjectsInScene(bool onlyRoot) {
+		GameObject[] allObjects = (GameObject[]) Resources.FindObjectsOfTypeAll(typeof(GameObject));
+		List<GameObject> result = new List<GameObject>();
+		foreach (GameObject obj in allObjects) {
+			if (onlyRoot && obj.transform.parent != null) continue;
+
+			if (obj.hideFlags == HideFlags.NotEditable || obj.hideFlags == HideFlags.HideAndDontSave) continue; 
+
+			if (Application.isEditor) {
+				string sAssetPath = AssetDatabase.GetAssetPath(obj.transform.root.gameObject);
+				if (!string.IsNullOrEmpty(sAssetPath)) continue;
+			}
+
+			result.Add(obj);
+		}
+		
+		return result;
 	}
 }
 

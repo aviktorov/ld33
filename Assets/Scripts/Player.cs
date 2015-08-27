@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 using System.Collections;
 
 public class Player : MonoSingleton<Player> {
-	[Header("Panel")]
+	[Header("Sounds")]
 	public AudioSource selectedSound;
 	public AudioSource showInfoSound;
 
@@ -14,10 +14,10 @@ public class Player : MonoSingleton<Player> {
 	public Text priceText;
 	public Text descriptionText;
 	public float offset = 150.0f;
-	
-	public Item selectedItem;
 
+	[Header("Selection")]
 	public UnityStandardAssets.ImageEffects.Fisheye fisheye;
+	public Item selectedItem;
 
 	private Camera mainCamera;
 	private Item highlightedItem;
@@ -54,8 +54,7 @@ public class Player : MonoSingleton<Player> {
 		bool wallCollided = Physics.Raycast(ray, out hitWall, Mathf.Infinity, 1 << LayerMask.NameToLayer("Default"));
 
 		if (Physics.Raycast(ray, out hitItem, Mathf.Infinity, 1 << LayerMask.NameToLayer("Item")) && 
-				(!wallCollided || hitItem.distance < hitWall.distance) && 
-				!EventSystem.current.IsPointerOverGameObject()) {
+				(!wallCollided || hitItem.distance < hitWall.distance)) {
 			Item item = hitItem.transform.GetComponent<Item>();
 			if (item != null) {
 				if (highlightedItem != null)
@@ -67,7 +66,7 @@ public class Player : MonoSingleton<Player> {
 				highlightedItem = item;
 				highlightedItem.Show();
 
-				if (Input.GetMouseButtonDown(0)) {
+				if (!EventSystem.current.IsPointerOverGameObject() && Input.GetMouseButtonDown(0)) {
 					if (selectedItem != null) {
 						selectedItem.Unselect();
 						selectedItem.Hide();

@@ -2,41 +2,33 @@
 
 public class CameraLogic : MonoBehaviour {
 	
+	public float speed = 1.0f;
 	public float smoothness = 4.0f;
 	
 	private Animation cachedAnimation;
-	private bool paused;
-	private float targetSpeed;
+
+	private int dir = 0;
 	
 	private void Awake() {
 		cachedAnimation = GetComponent<Animation>();
-		paused = false;
-		targetSpeed = 1.0f;
+		foreach (AnimationState state in cachedAnimation) {
+			state.speed = 1.0f;
+		}
+	}
+
+	private void Start() {
+		foreach (AnimationState state in cachedAnimation) {
+			state.speed = 1.0f;
+		}
 	}
 	
 	private void Update() {
 		foreach (AnimationState state in cachedAnimation) {
-			state.speed = Mathf.Lerp(state.speed, targetSpeed, smoothness * Time.deltaTime);
+			state.speed = Mathf.Lerp(state.speed, dir * speed, smoothness * Time.deltaTime);
 		}
 		
-		if (!paused) return;
-		
-		if (Input.GetKeyDown(KeyCode.W)) Next();
-		if (Input.GetKeyDown(KeyCode.S)) Prev();
-	}
-	
-	private void Next() {
-		paused = false;
-		targetSpeed = 1.0f;
-	}
-	
-	private void Prev() {
-		paused = false;
-		targetSpeed = -1.0f;
-	}
-	
-	public void Pause () {
-		paused = true;
-		targetSpeed = 0.0f;
+		if (Input.GetKey(KeyCode.W)) dir = 1;
+		else if (Input.GetKey(KeyCode.S)) dir = -1;
+		else dir = 0;
 	}
 }

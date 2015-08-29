@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
+[RequireComponent(typeof(Canvas))]
 public class InterstageFadeUI : MonoBehaviour {
 
 	public AnimationCurve inTransition = AnimationCurve.EaseInOut(0f, 0f, 0.5f, 1f);

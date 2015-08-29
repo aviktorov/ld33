@@ -23,6 +23,7 @@ public class Player : MonoSingleton<Player> {
 	private Item highlightedItem;
 
 	private Vector2 intensity = Vector2.zero;
+	private bool onSuspect = false;
 
 	private void Start() {
 		mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
@@ -66,7 +67,7 @@ public class Player : MonoSingleton<Player> {
 				highlightedItem = item;
 				highlightedItem.Show();
 
-				if (!EventSystem.current.IsPointerOverGameObject() && Input.GetMouseButtonDown(0)) {
+				if (!onSuspect && Input.GetMouseButtonDown(0)) {
 					if (selectedItem != null) {
 						selectedItem.Unselect();
 						selectedItem.Hide();
@@ -82,6 +83,7 @@ public class Player : MonoSingleton<Player> {
 					}
 					else {
 						selectedItem = null;
+						onSuspect = false;
 					}
 				}
 
@@ -119,5 +121,9 @@ public class Player : MonoSingleton<Player> {
 				highlightedItem = null;
 			}
 		}
+	}
+
+	public void OnSuspect(bool onSuspect) {
+		this.onSuspect = onSuspect;
 	}
 }

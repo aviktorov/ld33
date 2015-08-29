@@ -14,7 +14,7 @@ public class Raport : MonoBehaviour {
 	private Text text;
 
 	private void Awake() {
-		GameDBCSV db = GlobalSettings.db;
+		GameDBCSV db = GlobalSettings.instance.db;
 
 		text = GetComponent<Text>();
 
@@ -22,7 +22,7 @@ public class Raport : MonoBehaviour {
 			text.text = db.raports[0];
 		}
 		else {
-			if (GlobalSettings.win)
+			if (GlobalSettings.instance.win)
 				text.text = db.raports[1];
 			else
 				text.text = db.raports[2];

@@ -1,26 +1,53 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public static class GlobalSettings {
-	public static bool win = false;
+[System.Serializable]
+public enum Language {
+	English,
+	Russian
+}
 
-	public static GameDBCSV db {
+public class GlobalSettings : MonoBehaviour {
+	private static GlobalSettings _instance;
+
+	public static GlobalSettings instance {
 		get {
-			if (_db == null) {
-				// TODO: Remove
-				_db = GameObject.FindWithTag("LoadDB").GetComponent<LoadDB>().db;
-				//GameDB loadDB = ScriptableObject.CreateInstance<GameDB>();
-				//if (loadDB.Import()) {
-				//	_db = loadDB;
-				//}
-				//else {
-				//	_db = AssetDatabase.LoadAssetAtPath<GameDB>("Assets/DataBase/Items.asset");
-				//}
+			if (_instance == null) {
+				_instance = GameObject.FindObjectOfType<GlobalSettings>();
+				DontDestroyOnLoad(_instance.gameObject);
 			}
 
-			return _db;
+			return _instance;
 		}
 	}
 
-	private static GameDBCSV _db = null;
+	public bool win = false;
+	public Language language = Language.English;
+
+	[Header("DataBase")]
+	public GameDBCSV englishDB;
+	public GameDBCSV russianDB;
+
+	[HideInInspector]
+	public GameDBCSV db {
+		get {
+			switch (language) {
+				case Language.English: return englishDB;
+				case Language.Russian: return russianDB;
+			}
+
+			return englishDB;
+		}
+	}
+
+	private void Awake() {
+		if(_instance == null) {
+			_instance = this;
+			DontDestroyOnLoad(this);
+		}
+		else {
+			if (this != _instance)
+				Destroy(gameObject);
+		}
+	}
 }

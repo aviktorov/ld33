@@ -41,7 +41,7 @@ public class TextAnimation : MonoBehaviour {
 		if (pauseTimer >= 0.0f)
 			pauseTimer -= Time.deltaTime;
 
-		if (show && pauseTimer > 0.0f) {
+		if (show && pauseTimer >= 0.0f) {
 			if (timer < 0.0f) {
 				if (showSquare) {
 					text.text = currentText;
@@ -98,5 +98,13 @@ public class TextAnimation : MonoBehaviour {
 	public void Show() {
 		show = true;
 		pauseTimer = pauseDelay;
+	}
+
+	public void ShowFull() {
+		done = true;
+		pauseTimer = -1.0f;
+		timer = -1.0f;
+		currentText = string.Copy(finalText);
+		text.text = string.Copy(finalText);
 	}
 }

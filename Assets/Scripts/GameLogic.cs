@@ -15,7 +15,7 @@ public class GameLogic : MonoSingleton<GameLogic> {
 	private Item mimic;
 
 	public void Awake() {
-		db = GlobalSettings.db;
+		db = GlobalSettings.instance.db;
 
 		GameObject[] itemObjects = GameObject.FindGameObjectsWithTag("Item");
 		Item[] items = new Item[itemObjects.Length];
@@ -109,7 +109,7 @@ public class GameLogic : MonoSingleton<GameLogic> {
 		timer.gameObject.SetActive(false);
 		suspectButton.SetActive(false);
 
-		GlobalSettings.win = Player.instance.selectedItem == mimic;
+		GlobalSettings.instance.win = Player.instance.selectedItem == mimic;
 
 		interstageFadeUI.gameObject.SetActive(true);
 		interstageFadeUI.FadeToLevel("End");

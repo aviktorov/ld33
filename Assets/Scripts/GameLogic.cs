@@ -21,6 +21,8 @@ public class GameLogic : MonoSingleton<GameLogic> {
 		Item[] items = new Item[itemObjects.Length];
 		for (int i = 0; i < items.Length; ++i) {
 			items[i] = itemObjects[i].GetComponent<Item>();
+			if (items[i] != null)
+				items[i].type = db.types[items[i].index];
 		}
 
 		int mimicNumber = 0;

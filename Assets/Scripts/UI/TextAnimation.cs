@@ -12,10 +12,10 @@ public class TextAnimation : MonoBehaviour {
 
 	public AudioSource sound;
 
-	public float pauseDelay = 0.6f;
-	public float delay = 0.02f;
+	public float pauseDelay = 0.9f;
+	public float typeDelay = 0.05f;
+	public float flickDelay = 0.3f;
 
-	public float flickTime = 0.5f;
 	private bool showSquare = true;
 
 	private Text text;
@@ -46,12 +46,12 @@ public class TextAnimation : MonoBehaviour {
 				if (showSquare) {
 					text.text = currentText;
 					showSquare = false;
-					timer = flickTime;
+					timer = flickDelay;
 				}
 				else {
 					text.text = currentText + '■';
 					showSquare = true;
-					timer = flickTime;
+					timer = flickDelay;
 				}
 			}
 		}
@@ -62,14 +62,14 @@ public class TextAnimation : MonoBehaviour {
 					if (finalText[index] == '\n') {
 						showSquare = false;
 						pauseTimer = pauseDelay;
-						timer = flickTime;
+						timer = flickDelay;
 					}
 					if (!sound.isPlaying) {
 						sound.Play();
 					}
 					currentText += finalText[index];
 					text.text = currentText + '■';
-					timer = delay;
+					timer = typeDelay;
 					
 					index++;
 					if (index == finalText.Length) {
@@ -83,12 +83,12 @@ public class TextAnimation : MonoBehaviour {
 					if (showSquare) {
 						text.text = currentText;
 						showSquare = false;
-						timer = flickTime;
+						timer = flickDelay;
 					}
 					else {
 						text.text = currentText + '■';
 						showSquare = true;
-						timer = flickTime;
+						timer = flickDelay;
 					}
 				}
 			}

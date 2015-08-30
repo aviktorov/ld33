@@ -26,10 +26,12 @@ public class GameLogic : MonoSingleton<GameLogic> {
 		int mimicNumber = 0;
 		bool chose = false;
 		while (!chose) {
-			chose = true;
 			mimicNumber = Random.Range(0, items.Length);
+			if (items[mimicNumber] == null) continue;
+
+			chose = true;
 			for (int i = 1; i <= 7; i++) {
-				if (items[mimicNumber] == null || items[mimicNumber].type == ("Note" + i)) {
+				if (items[mimicNumber].type == ("Note" + i)) {
 					chose = false;
 					break;
 				}

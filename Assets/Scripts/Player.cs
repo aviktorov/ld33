@@ -17,6 +17,8 @@ public class Player : MonoSingleton<Player> {
 
 	[Header("Selection")]
 	public UnityStandardAssets.ImageEffects.Fisheye fisheye;
+
+	[HideInInspector]
 	public Item selectedItem;
 
 	private Camera mainCamera;
@@ -24,6 +26,12 @@ public class Player : MonoSingleton<Player> {
 
 	private Vector2 intensity = Vector2.zero;
 	private bool onSuspect = false;
+
+	private GameDBCSV db;
+
+	private void Awake() {
+		db = GlobalSettings.instance.db;
+	}
 
 	private void Start() {
 		mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
@@ -88,8 +96,8 @@ public class Player : MonoSingleton<Player> {
 				}
 
 				labelText.text = "<b>" + highlightedItem.label + "</b>";
-				priceText.text = "<b>Price:</b> " + highlightedItem.price + " ₽";
-				descriptionText.text = "<b>Descritption:</b>\n" + highlightedItem.description;
+				priceText.text = "<b>" + db.GetTranslation("Price") + ":</b> " + highlightedItem.price + " ₽";
+				descriptionText.text = "<b>" + db.GetTranslation("Descritption") + ":</b>\n" + highlightedItem.description;
 				panel.gameObject.SetActive(true);
 			}
 

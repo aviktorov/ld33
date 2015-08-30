@@ -21,7 +21,8 @@ public class GameDBCSVEditor : Editor
 			EditorGUILayout.LabelField(string.Format("Names: {0}", data.names.Count));
 			EditorGUILayout.LabelField(string.Format("Types: {0}", data.types.Count));
 			EditorGUILayout.LabelField(string.Format("Themes: {0}", data.themes.Count));
-			EditorGUILayout.LabelField(string.Format("Raports: {0}", data.raports.Count));
+			EditorGUILayout.LabelField(string.Format("Translations: {0}", data.translations.Count));
+			EditorGUILayout.LabelField(string.Format("Labels: {0}", data.labels.Count));
 		EditorGUILayout.EndVertical();
 		
 		EditorGUILayout.BeginVertical("box");
@@ -30,7 +31,7 @@ public class GameDBCSVEditor : Editor
 			data.descriptionData = (TextAsset)EditorGUILayout.ObjectField("Description",data.descriptionData,typeof(TextAsset),false);
 			data.nameData = (TextAsset)EditorGUILayout.ObjectField("Names",data.nameData,typeof(TextAsset),false);
 			data.themeData = (TextAsset)EditorGUILayout.ObjectField("Themes",data.themeData,typeof(TextAsset),false);
-			data.raportData = (TextAsset)EditorGUILayout.ObjectField("Raports",data.raportData,typeof(TextAsset),false);
+			data.textTranslationData = (TextAsset)EditorGUILayout.ObjectField("Translations",data.textTranslationData,typeof(TextAsset),false);
 			EditorGUILayout.Space();
 			EditorGUILayout.BeginHorizontal();
 				if(GUILayout.Button("Import")) {
@@ -42,7 +43,8 @@ public class GameDBCSVEditor : Editor
 					data.names.Clear();
 					data.types.Clear();
 					data.themes.Clear();
-					data.raports.Clear();
+					data.translations.Clear();
+					data.labels.Clear();
 				}
 			EditorGUILayout.EndHorizontal();
 		EditorGUILayout.EndVertical();
@@ -57,7 +59,8 @@ public class GameDBCSVEditor : Editor
 		ImportDescriptionData(data.descriptionData,data.descriptions);
 		ImportTypesData(data.nameData,data.names);
 		ImportListData(data.themeData,data.types,data.themes);
-		ImportRaportData(data.raportData,data.raports);
+		ImportTextTranslationData(data.textTranslationData,data.translations);
+		ImportLabelData(data.textTranslationData,data.labels);
 	}
 	
 	void ImportDescriptionData(TextAsset csv,List<DescriptionData> descriptions)
@@ -124,22 +127,43 @@ public class GameDBCSVEditor : Editor
 		
 		while (parser.ReadNextRecord())
 		{
-			types.Add(parser[0]);
-			themes.Add(parser[1]);
+			if (parser[0] != "")
+				types.Add(parser[0]);
+			if (parser[1] != "")
+				themes.Add(parser[1]);
 		}
 	}
 	
-	void ImportRaportData(TextAsset csv,List<string> raports)
+	void ImportTextTranslationData(TextAsset csv,List<TextTranslationData> translations)
 	{
 		if(csv == null) return;
 		
 		CsvReader parser = new CsvReader(new StringReader(csv.text),true);
 		
-		raports.Clear();
+		translations.Clear();
+
+		while (parser.ReadNextRecord())
+		{
+			TextTranslationData data = new TextTranslationData();
+			
+			data.label = parser[0];
+			data.translation = parser[1];
+			
+			translations.Add(data);
+		}
+	}
+
+	void ImportLabelData(TextAsset csv,List<string> labels)
+	{
+		if(csv == null) return;
+		
+		CsvReader parser = new CsvReader(new StringReader(csv.text),true);
+		
+		labels.Clear();
 		
 		while (parser.ReadNextRecord())
 		{
-			raports.Add(parser[1]);
+			labels.Add(parser[0]);
 		}
 	}
 }

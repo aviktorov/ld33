@@ -14,9 +14,12 @@ public class Player : MonoSingleton<Player> {
 	public Text priceText;
 	public Text descriptionText;
 	public float offset = 150.0f;
+	public float offsetWidth = 260.0f;
+	public float offsetHeight = 410.0f; 
 
-	[Header("Selection")]
+	[Header("Select")]
 	public UnityStandardAssets.ImageEffects.Fisheye fisheye;
+	public GameObject suspectButton;
 
 	[HideInInspector]
 	public Item selectedItem;
@@ -35,15 +38,94 @@ public class Player : MonoSingleton<Player> {
 
 	private void Start() {
 		mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+		suspectButton.SetActive(false);
 	}
 
 	private void Update () {
+		Vector2 screenSize = new Vector2(mainCamera.pixelWidth, mainCamera.pixelHeight);
+		
+		Ray ray = mainCamera.ScreenPointToRay(GetMousePosition(screenSize));
+		
 		RaycastHit hitItem;
 		RaycastHit hitWall;
 
-		Vector2 screenSize = new Vector2(mainCamera.pixelWidth, mainCamera.pixelHeight);
+		bool itemCollided = Physics.Raycast(ray, out hitItem, Mathf.Infinity, 1 << LayerMask.NameToLayer("Item"));
+		bool wallCollided = Physics.Raycast(ray, out hitWall, Mathf.Infinity, 1 << LayerMask.NameToLayer("Default"));
 
-		// Fisheye for mousePosition
+		Item item = null;
+		if (itemCollided) item = hitItem.transform.GetComponent<Item>();
+
+		if (itemCollided && (!wallCollided || hitItem.distance < hitWall.distance) && item != null) {
+			// Highlight
+			if (highlightedItem != null)
+				highlightedItem.Hide();
+
+			if (item != highlightedItem && !showInfoSound.isPlaying) 
+				showInfoSound.Play();
+
+			highlightedItem = item;
+			highlightedItem.Show();
+
+			// Select
+			if (!onSuspect && Input.GetMouseButtonDown(0)) {
+				if (selectedItem != null) {
+					selectedItem.Unselect();
+					selectedItem.Hide();
+
+					if (!selectedSound.isPlaying)
+						selectedSound.Play();
+				}
+
+				if (selectedItem != highlightedItem) {
+					selectedItem = highlightedItem;
+					selectedItem.Select();
+					suspectButton.SetActive(true);
+
+					if (!selectedSound.isPlaying)
+						selectedSound.Play();
+				}
+				else {
+					selectedItem = null;
+					suspectButton.SetActive(false);
+					onSuspect = false;
+				}
+			}
+
+			// Update panel
+			labelText.text = "<b>" + highlightedItem.label + "</b>";
+			priceText.text = "<b>" + db.GetTranslation("Price") + ":</b> " + highlightedItem.price + " ₽";
+			descriptionText.text = "<b>" + db.GetTranslation("Descritption") + ":</b>\n" + highlightedItem.description;
+			panel.gameObject.SetActive(true);
+
+			// Place a panel not on the edge and with offset.
+			Vector3 itemPosition = mainCamera.WorldToScreenPoint(hitItem.transform.position);
+
+			float dirOffset = (itemPosition.x > screenSize.x / 2) ? +offset : -offset;
+			Vector3 panelPosition = VectorExt.WithZ(itemPosition, 0.0f) + Vector3.left * dirOffset;
+
+			if (panelPosition.x > screenSize.x - offsetWidth) 
+				panelPosition = VectorExt.WithX(panelPosition, screenSize.x - offsetWidth);
+			if (panelPosition.x < offsetWidth) 
+				panelPosition = VectorExt.WithX(panelPosition, offsetWidth);
+
+			if (panelPosition.y > screenSize.y - offsetHeight) 
+				panelPosition = VectorExt.WithY(panelPosition, screenSize.y - offsetHeight);
+			if (panelPosition.y < offsetHeight) 
+				panelPosition = VectorExt.WithY(panelPosition, offsetHeight);
+
+			panel.position = panelPosition;
+		}
+		else {
+			panel.gameObject.SetActive(false);
+			if (highlightedItem != null) {
+				highlightedItem.Hide();
+				highlightedItem = null;
+			}
+		}
+	}
+
+	private Vector2 GetMousePosition(Vector2 screenSize) {
+		// Applying the inverse fisheye
 		float oneOverBaseSize = 80.0f / 512.0f;
 		float ar = (screenSize.x * 1.0f) / (screenSize.y * 1.0f);
 
@@ -59,76 +141,7 @@ public class Player : MonoSingleton<Player> {
 		fisheyeMousePosition.x *= screenSize.x;
 		fisheyeMousePosition.y *= screenSize.y;
 
-		Ray ray = mainCamera.ScreenPointToRay(fisheyeMousePosition);
-		bool wallCollided = Physics.Raycast(ray, out hitWall, Mathf.Infinity, 1 << LayerMask.NameToLayer("Default"));
-
-		if (Physics.Raycast(ray, out hitItem, Mathf.Infinity, 1 << LayerMask.NameToLayer("Item")) && 
-				(!wallCollided || hitItem.distance < hitWall.distance)) {
-			Item item = hitItem.transform.GetComponent<Item>();
-			if (item != null) {
-				if (highlightedItem != null)
-					highlightedItem.Hide();
-
-				if (item != highlightedItem && !showInfoSound.isPlaying) 
-					showInfoSound.Play();
-
-				highlightedItem = item;
-				highlightedItem.Show();
-
-				if (!onSuspect && Input.GetMouseButtonDown(0)) {
-					if (selectedItem != null) {
-						selectedItem.Unselect();
-						selectedItem.Hide();
-						if (!selectedSound.isPlaying)
-							selectedSound.Play();
-					}
-
-					if (selectedItem != highlightedItem) {
-						selectedItem = highlightedItem;
-						selectedItem.Select();
-						if (!selectedSound.isPlaying)
-							selectedSound.Play();
-					}
-					else {
-						selectedItem = null;
-						onSuspect = false;
-					}
-				}
-
-				labelText.text = "<b>" + highlightedItem.label + "</b>";
-				priceText.text = "<b>" + db.GetTranslation("Price") + ":</b> " + highlightedItem.price + " ₽";
-				descriptionText.text = "<b>" + db.GetTranslation("Descritption") + ":</b>\n" + highlightedItem.description;
-				panel.gameObject.SetActive(true);
-			}
-
-			// Place a panel not on the edge and with offset.
-			Vector3 itemPosition = mainCamera.WorldToScreenPoint(hitItem.transform.position);
-
-			float dirOffset = 0.0f;
-			if (itemPosition.x < screenSize.x / 2)
-				dirOffset = -offset;
-			else
-				dirOffset = offset;
-
-			panel.position = VectorExt.WithZ(itemPosition, 0.0f) + Vector3.left * dirOffset;
-
-			if (panel.position.x > screenSize.x - offset) 
-				panel.position = VectorExt.WithX(panel.position, panel.position.x - (screenSize.x - panel.position.x + 50));
-			if (panel.position.x < offset) 
-				panel.position = VectorExt.WithX(panel.position, panel.position.x + (50 + panel.position.x));
-
-			if (panel.position.y > screenSize.y - offset) 
-				panel.position = VectorExt.WithY(panel.position, panel.position.y - (screenSize.y - panel.position.y + 100));
-			if (panel.position.y < offset) 
-				panel.position = VectorExt.WithY(panel.position, panel.position.y + (100 + panel.position.y));
-		}
-		else {
-			panel.gameObject.SetActive(false);
-			if (highlightedItem != null) {
-				highlightedItem.Hide();
-				highlightedItem = null;
-			}
-		}
+		return fisheyeMousePosition;
 	}
 
 	public void OnSuspect(bool onSuspect) {

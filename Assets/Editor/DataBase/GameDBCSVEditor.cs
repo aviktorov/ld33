@@ -4,7 +4,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using LumenWorks.Framework.IO.Csv;
 
 [CustomEditor(typeof(GameDBCSV))]
 public class GameDBCSVEditor : Editor
@@ -66,31 +65,29 @@ public class GameDBCSVEditor : Editor
 	void ImportDescriptionData(TextAsset csv,List<DescriptionData> descriptions)
 	{
 		if(csv == null) return;
-		
-		CsvReader parser = new CsvReader(new StringReader(csv.text),true);
-		
-		descriptions.Clear();
-		
-		while (parser.ReadNextRecord())
-		{
+
+        List<List<string>> parser = fgCSVReader.LoadFromString(csv.text);
+
+        descriptions.Clear();
+        for (int i = 0; i < parser.Count; i++) {
 			DescriptionData data = new DescriptionData();
-			data.type = parser[0];
+			data.type = parser[i][0];
 			
 			float probability = 0.0f;
-			float.TryParse(parser[1], out probability);
+			float.TryParse(parser[i][1], out probability);
 			data.probability = probability;
 			
-			data.text = parser[2];
+			data.text = parser[i][2];
 			
 			int group = 0;
-			int.TryParse(parser[3], out group);
+			int.TryParse(parser[i][3], out group);
 			data.group = group;
 			
 			int mimic = 0;
-			int.TryParse(parser[4], out mimic);
+			int.TryParse(parser[i][4], out mimic);
 			data.mimic = (mimic == 1);
 			
-			data.theme = (parser[5] == null ? "" : parser[5]);
+			data.theme = (parser[i][5] == null ? "" : parser[i][5]);
 			
 			descriptions.Add(data);
 		}
@@ -100,37 +97,35 @@ public class GameDBCSVEditor : Editor
 	{
 		if(csv == null) return;
 		
-		CsvReader parser = new CsvReader(new StringReader(csv.text),true);
+        List<List<string>> parser = fgCSVReader.LoadFromString(csv.text);
 		
 		names.Clear();
 		
-		while (parser.ReadNextRecord())
-		{
+        for (int i = 0; i < parser.Count; i++) {
 			NameData data = new NameData();
 			
-			data.type = parser[0];
-			data.name = parser[1];
-			data.price = parser[2];
+			data.type = parser[i][0];
+			data.name = parser[i][1];
+			data.price = parser[i][2];
 			
 			names.Add(data);
 		}
-	}
-	
-	void ImportListData(TextAsset csv,List<string> types,List<string> themes)
+    }
+
+    void ImportListData(TextAsset csv,List<string> types,List<string> themes)
 	{
 		if(csv == null) return;
 		
-		CsvReader parser = new CsvReader(new StringReader(csv.text),true);
+        List<List<string>> parser = fgCSVReader.LoadFromString(csv.text);
 		
 		types.Clear();
 		themes.Clear();
 		
-		while (parser.ReadNextRecord())
-		{
-			if (parser[0] != "")
-				types.Add(parser[0]);
-			if (parser[1] != "")
-				themes.Add(parser[1]);
+        for (int i = 0; i < parser.Count; i++) {
+            if (parser[i][0] != "")
+				types.Add(parser[i][0]);
+			if (parser[i][1] != "")
+				themes.Add(parser[i][1]);
 		}
 	}
 	
@@ -138,16 +133,15 @@ public class GameDBCSVEditor : Editor
 	{
 		if(csv == null) return;
 		
-		CsvReader parser = new CsvReader(new StringReader(csv.text),true);
+        List<List<string>> parser = fgCSVReader.LoadFromString(csv.text);
 		
 		translations.Clear();
 
-		while (parser.ReadNextRecord())
-		{
+        for (int i = 0; i < parser.Count; i++) {
 			TextTranslationData data = new TextTranslationData();
 			
-			data.label = parser[0];
-			data.translation = parser[1];
+			data.label = parser[i][0];
+			data.translation = parser[i][1];
 			
 			translations.Add(data);
 		}
@@ -157,13 +151,12 @@ public class GameDBCSVEditor : Editor
 	{
 		if(csv == null) return;
 		
-		CsvReader parser = new CsvReader(new StringReader(csv.text),true);
+        List<List<string>> parser = fgCSVReader.LoadFromString(csv.text);
+
+        labels.Clear();
 		
-		labels.Clear();
-		
-		while (parser.ReadNextRecord())
-		{
-			labels.Add(parser[0]);
+        for (int i = 0; i < parser.Count; i++) {
+			labels.Add(parser[i][0]);
 		}
 	}
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -17,7 +18,7 @@ public class InterstageFadeUI : MonoBehaviour {
 		DontDestroyOnLoad(gameObject);
 		yield return StartCoroutine(DoAnimate(inTransition));
 
-		Application.LoadLevel(level);
+		SceneManager.LoadScene(level);
 		yield return StartCoroutine(DoAnimate(outTransition));
 
 		Destroy(gameObject);

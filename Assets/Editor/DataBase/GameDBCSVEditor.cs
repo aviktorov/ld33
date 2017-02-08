@@ -69,7 +69,7 @@ public class GameDBCSVEditor : Editor
         List<List<string>> parser = fgCSVReader.LoadFromString(csv.text);
 
         descriptions.Clear();
-        for (int i = 0; i < parser.Count; i++) {
+        for (int i = 1; i < parser.Count; i++) {
 			DescriptionData data = new DescriptionData();
 			data.type = parser[i][0];
 			
@@ -101,7 +101,7 @@ public class GameDBCSVEditor : Editor
 		
 		names.Clear();
 		
-        for (int i = 0; i < parser.Count; i++) {
+        for (int i = 1; i < parser.Count; i++) {
 			NameData data = new NameData();
 			
 			data.type = parser[i][0];
@@ -121,7 +121,7 @@ public class GameDBCSVEditor : Editor
 		types.Clear();
 		themes.Clear();
 		
-        for (int i = 0; i < parser.Count; i++) {
+        for (int i = 1; i < parser.Count; i++) {
             if (parser[i][0] != "")
 				types.Add(parser[i][0]);
 			if (parser[i][1] != "")
@@ -137,7 +137,7 @@ public class GameDBCSVEditor : Editor
 		
 		translations.Clear();
 
-        for (int i = 0; i < parser.Count; i++) {
+        for (int i = 1; i < parser.Count; i++) {
 			TextTranslationData data = new TextTranslationData();
 			
 			data.label = parser[i][0];
@@ -155,7 +155,7 @@ public class GameDBCSVEditor : Editor
 
         labels.Clear();
 		
-        for (int i = 0; i < parser.Count; i++) {
+        for (int i = 1; i < parser.Count; i++) {
 			labels.Add(parser[i][0]);
 		}
 	}

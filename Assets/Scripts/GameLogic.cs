@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class GameLogic : MonoSingleton<GameLogic> {
 	public InterstageFadeUI interstageFadeUI;
 
-	public Timer timer;
+	public Clock clock;
 	public GameObject suspectButton;
 	public string theme;
 
@@ -97,7 +97,7 @@ public class GameLogic : MonoSingleton<GameLogic> {
 	}
 
 	public void EndGame() {
-		timer.gameObject.SetActive(false);
+		clock.gameObject.SetActive(false);
 		suspectButton.SetActive(false);
 
 		GlobalSettings.instance.win = Player.instance.selectedItem == mimic;

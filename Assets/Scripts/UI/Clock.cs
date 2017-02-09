@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class Timer : MonoBehaviour {
+public class Clock : MonoBehaviour {
 	public Text timerText;
 	public bool isStop = false;
 

@@ -68,7 +68,7 @@ public class TextAnimation : MonoBehaviour {
 						sound.Play();
 					}
 					currentText += finalText[index];
-					text.text = currentText + '■';
+					text.text = currentText + '■' + "<color=#000000>" + finalText.Substring(index + 1) +  "</color>";
 					timer = typeDelay;
 					
 					index++;
